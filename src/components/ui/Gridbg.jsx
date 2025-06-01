@@ -1,33 +1,13 @@
-'use client';
+"use client";
 
+import { Icon } from '@iconify/react'; 
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { motion } from "framer-motion";
 import { ThreeDCardDemo } from "@/app/project/card";
-
-const projects = [
-  {
-    title: "E-commerce Platform",
-    description: "A full-stack MERN e-commerce app with cart, wishlist, filtering, and authentication.",
-    date: "May 2025",
-  },
-  {
-    title: "Task Manager",
-    description: "A Next.js productivity app with drag & drop, due dates, and team collaboration.",
-    date: "March 2025",
-  },
-  {
-    title: "Portfolio Website",
-    description: "My animated personal portfolio built using React, Tailwind CSS, and Framer Motion.",
-    date: "January 2025",
-  },
-  {
-    title: "Blog CMS",
-    description: "A full-featured content management system built with Sanity and Next.js.",
-    date: "February 2025",
-  },
-];
-
+import { BoxRevealDemo } from "@/app/project/about";
+import { ShineBorderDemo } from "@/app/project/contact";
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 100 },
@@ -38,13 +18,12 @@ const fadeInUp = {
   },
 };
 
-const SectionWrapper = ({
-  title,
-  children,
-}) => (
-  <section
-    className="relative w-full min-h-screen snap-start py-20 bg-zinc-900 dark:bg-black text-white flex flex-col justify-center"
-  >
+const LottieWrapper = dynamic(() => import("@/app/project/lottiwrapper"), {
+  ssr: false,
+});
+
+const SectionWrapper = ({ id, title, children }) => (
+  <section id={id} className="relative w-full min-h-screen snap-start py-20 bg-zinc-900 dark:bg-black text-white flex flex-col justify-center">
     {/* Background grid */}
     <div
       className={cn(
@@ -64,7 +43,7 @@ const SectionWrapper = ({
       viewport={{ once: false, amount: 0.3 }}
       className="relative z-10 max-w-5xl mx-auto px-4 text-center"
     >
-      <h2 className="text-4xl sm:text-6xl font-bold bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-transparent mb-10">
+      <h2 className="text-4xl sm:text-6xl font-bold bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-transparent -mt-16 mb-11">
         {title}
       </h2>
       {children}
@@ -75,63 +54,56 @@ const SectionWrapper = ({
 export default function PortfolioPage() {
   return (
     <div>
-      <SectionWrapper title="Project">
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, i) => (
-            <motion.div
-              key={i}
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.6 }}
-              className="group h-96  rounded-xl border border-neutral-700  transition-transform duration-300 hover:scale-105 hover:border-neutral-500 bg-neutral-800"
-            >
-              <ThreeDCardDemo/>
-            </motion.div>
-          ))}
+      <SectionWrapper  id="projects" title="Project">
+        <div>
+          <ThreeDCardDemo />
         </div>
       </SectionWrapper>
 
-      <SectionWrapper title="About Me">
-        <p className="text-lg text-neutral-300 leading-relaxed max-w-2xl mx-auto">
-          I’m a 3rd-year B.Tech student passionate about full-stack development. I love building modern web apps using MERN, Next.js, and Tailwind CSS. My focus is on creating user-friendly, performance-optimized, and scalable applications.
-        </p>
+      <SectionWrapper id="about" title="About Me">
+        <BoxRevealDemo />
       </SectionWrapper>
 
-      <SectionWrapper title="Skills">
-        <div className="flex flex-wrap justify-center gap-4 text-neutral-300">
-          {[
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "React",
-            "Next.js",
-            "Redux",
-            "Node.js",
-            "MongoDB",
-            "Tailwind CSS",
-            "Git",
-          ].map((skill, idx) => (
-            <span
-              key={idx}
-              className="px-4 py-2 rounded-full bg-neutral-800 hover:bg-cyan-700 transition-colors duration-300"
-            >
-              {skill}
-            </span>
-          ))}
+   <SectionWrapper id="skills" title="Skills">
+  <h1 className="text-center text-2xl font-bold text-white mb-6">
+    Technologies I&apos;ve Worked With
+  </h1>
+  <div className="flex flex-wrap justify-center gap-4 text-white">
+    {[
+      { name: "HTML", icon: "vscode-icons:file-type-html", desc: "Markup Language" },
+      { name: "CSS", icon: "vscode-icons:file-type-css", desc: "Style Sheets" },
+      { name: "JavaScript", icon: "logos:javascript", desc: "Scripting Language" },
+      { name: "React", icon: "skill-icons:react-dark", desc: "JS Framework" },
+      { name: "Next.js", icon: "skill-icons:nextjs-dark", desc: "React Framework" },
+      { name: "Redux", icon: "logos:redux", desc: "State Manager" },
+      { name: "Node.js", icon: "logos:nodejs-icon", desc: "Backend Runtime" },
+      { name: "MongoDB", icon: "devicon:mongodb", desc: "NoSQL DB" },
+      { name: "Express.js", icon: "simple-icons:express", desc: "Backend Framework" },
+      { name: "Tailwind CSS", icon: "skill-icons:tailwindcss-dark", desc: "Utility-first CSS" },
+      { name: "Git", icon: "logos:git-icon", desc: "Version Control" },
+    ].map((skill, idx) => (
+      <div
+        key={idx}
+        className="flex items-center gap-3 px-4 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl hover:bg-cyan-700/30 transition-all duration-300 shadow-sm"
+      >
+        <span className="text-2xl">
+         <Icon icon={skill.icon} />
+        </span>
+        <div>
+          <p className="font-semibold">{skill.name}</p>
+          <p className="text-sm text-neutral-400">{skill.desc}</p>
         </div>
-      </SectionWrapper>
+      </div>
+    ))}
+  </div>
+   </SectionWrapper>
 
-      <SectionWrapper title="Contact Me">
-        <div className="text-center">
-          <p className="text-neutral-300 mb-4">Let's connect and build something great!</p>
-          <a
-            href="mailto:your.email@example.com"
-            className="inline-block mt-4 px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-500 transition"
-          >
-            Send Email
-          </a>
-          
+      <SectionWrapper id="contact" title="Contact Me">
+        <div className="flex flex-col-reverse lg:flex-row -ml-9 lg:ml-0 justify-between">
+          <ShineBorderDemo />
+          <div className="mt-3">
+           <LottieWrapper/>
+          </div>
         </div>
       </SectionWrapper>
     </div>

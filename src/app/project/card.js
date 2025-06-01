@@ -1,50 +1,136 @@
 "use client";
-
-
+import { motion } from "framer-motion";
 import React from "react";
-import { CardBody, CardContainer, CardItem } from '../../components/ui/3d-card'
+import { CardBody, CardContainer, CardItem } from "../../components/ui/3d-card";
+import { Icon } from "@iconify/react";
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 },
+};
 
 export function ThreeDCardDemo() {
+  const projects = [
+    {
+      title: "E-commerce Platform",
+      description:
+        "Inspired by Flipkart/Amazon, the project lets one seller manage electronics and customers order via COD or online.",
+      date: "May 2025",
+      link: "https://embproto.vercel.app/",
+      icon: ["skill-icons:nextjs-dark", "skill-icons:tailwindcss-dark"],
+      img: "Screenshot.png",
+    },
+    {
+      title: "TEN AI",
+      description:
+        "An AI-powered platform where users can interact with multiple AI agents via chat and voice calls to get informative, real-time answers to their queries and problems.",
+      date: "March 2025",
+      img: "Screenshot2.png",
+      icon: [
+        "skill-icons:react-dark",
+        "simple-icons:express",
+        "skill-icons:tailwindcss-dark",
+      ],
+      link: "https://embproto.vercel.app/",
+    },
+    {
+      title: "Edtech Perception",
+      description:
+        "A full-stack EdTech platform where instructors upload courses, students purchase and enroll, and an admin manages users, payments, and course content.",
+      date: "January 2025",
+      img: "Screenshot3.png",
+      icon: [
+        "skill-icons:react-dark",
+        "logos:redux",
+        "simple-icons:express",
+        "skill-icons:tailwindcss-dark",
+      ],
+
+      link: "https://edtechperception.vercel.app/",
+    },
+    {
+      title: "Blog Perception",
+      description:
+        "A modern blog app where users can write and share blogs, explore inspiring quotes, and enjoy trending GIFs in one place.",
+      date: "February 2025",
+      img: "Screenshot4.png",
+      icon: ["skill-icons:react-dark", "skill-icons:tailwindcss-dark"],
+
+      link: "https://pankajperception.vercel.app/",
+    },
+  ];
+
+  const openlinkhandler = (link) => {
+    window.open(link, "_blank");
+  };
+
   return (
-    <CardContainer className="inter-var">
-      <CardBody
-        className="bg-gray-50 scale-75 -mt-32 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
-        <CardItem
-          translateZ="50"
-          className="text-xl font-bold text-neutral-600 dark:text-white">
-          Make things float in air
-        </CardItem>
-        <CardItem
-          as="p"
-          translateZ="60"
-          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300">
-          Hover over this card to unleash the power of CSS perspective
-        </CardItem>
-        <CardItem translateZ="100" rotateX={20} rotateZ={-10} className="w-full mt-4">
-          <img
-            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            height="1000"
-            width="1000"
-            className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-            alt="thumbnail" />
-        </CardItem>
-        <div className="flex justify-between items-center mt-20">
-          <CardItem
-            translateZ={20}
-            translateX={-40}
-            as="button"
-            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white">
-            Try now →
-          </CardItem>
-          <CardItem
-            translateZ={20}
-            translateX={40}
-            as="button"
-            className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold">
-            Sign up
-          </CardItem>
-        </div>
-      </CardBody>
-    </CardContainer>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-40">
+      {projects.map((project, i) => (
+        <motion.div
+          key={i}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInUp}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+        >
+          <CardContainer className="bg-gray-600">
+            <CardBody className="hover-card scale-90 -mt-32  bg-orange-300  border w-full sm:w-[30rem] h-auto rounded-xl p-6 dark:border-white/[0.2] border-black/[0.1]">
+              <CardItem
+                translateZ="50"
+                className="text-xl font-bold text-neutral-600 dark:text-white"
+              >
+                {project?.title}
+              </CardItem>
+              <CardItem
+                as="p"
+                translateZ="60"
+                className="text-amber-100 text-sm max-w-sm mt-2 "
+              >
+                {project?.description}
+              </CardItem>
+              <span className="flex gap-2 mt-2">
+                {project.icon.map((iconName, index) => (
+                  <Icon key={index} icon={iconName} className="text-2xl" />
+                ))}
+              </span>
+
+              <CardItem
+                translateZ="100"
+                rotateX={20}
+                rotateZ={-10}
+                className="w-full mt-2"
+              >
+                <img
+                  src={project?.img}
+                  alt={project?.title}
+                  className="h-60 w-full object-cover rounded-xl transition duration-300"
+                />
+              </CardItem>
+              <div className="flex justify-between items-center mt-6">
+                <CardItem
+                  translateZ={20}
+                  translateX={-40}
+                  as="button"
+                  className="px-4 py-2 rounded-xl  font-bold text-black"
+                >
+                  {project?.date}
+                </CardItem>
+                <CardItem
+                  onClick={() => openlinkhandler(project?.link)}
+                  translateZ={20}
+                  translateX={40}
+                  as="button"
+                  className="px-4 py-2 cursor-pointer rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+                >
+                  live link
+                </CardItem>
+              </div>
+            </CardBody>
+          </CardContainer>
+        </motion.div>
+      ))}
+    </div>
   );
 }

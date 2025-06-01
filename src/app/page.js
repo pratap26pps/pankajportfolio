@@ -4,33 +4,29 @@ import { FloatingNav } from "@/components/ui/floatingnavbar";
 import {TypewriterEffectSmooth } from "@/components/ui/typewritter";
 import { BackgroundBeams } from "../components/ui/background";
 import GridBackgroundDemo from "@/components/ui/Gridbg";
-import { Button } from "@/components/ui/movingborder";
-import {TextHoverEffect} from '../components/ui/texteffect'
-import { IconHome, IconMessage, IconUser,
-} from "@tabler/icons-react";
-import { IoReader } from "react-icons/io5";
+import { Button } from "@/components/ui/movingborder"; 
 import { AnimatedTooltip } from "../components/ui/animatedtooltip";
- 
+
 export default function BackgroundBeamsDemo() {
   const navItems = [
     {
       name: "Projects",
-      link: "/",
+      link: "#projects",
       
     },
     {
       name: "Skills",
-      link: "/Skills",
+      link: "#skills",
       
     },
     {
       name: "About",
-      link: "/about",
+      link: "#about",
  
     },
     {
       name: "Contact",
-      link: "/contact",
+      link: "#contact",
       
     },
   ];
@@ -60,13 +56,13 @@ export default function BackgroundBeamsDemo() {
       {
         id: 3,
         name: "Gmail",
-        link: "/contact",
+        link:"mailto:pankajpatna10321@gmail.com",
         image: "/gmail.png"  
       },
       {
         id: 4,
         name: "Resume",
-        link: "/contact",
+        link: "https://drive.google.com/file/d/11l3UQr-2bmbP5wDAzmUQxmtjs7wryv8T/view?usp=drive_link",
         image: "/file.png"  
       },
     ];
@@ -112,17 +108,20 @@ export default function BackgroundBeamsDemo() {
           <p className="text-neutral-500 max-w-lg mx-auto my-2  text-center relative z-10">
            Mdu-Rohtak Haryana, India
           </p>
-       <div className="ml-28 lg:ml-0 md:ml-96">
-     <Button  borderRadius="1.75rem">
+       <div className="ml-28 cursor-pointer lg:ml-0 md:ml-96">
+         <a href="#projects" >
+        <Button className="cursor-pointer"  borderRadius="1.75rem">
          Show my work
         </Button>
+         </a>
+ 
        </div>
      
         </div>
         <BackgroundBeams/>
       </div>
 
-      {/* About Section */}
+      {/* every Section */}
       <div className="">
      <GridBackgroundDemo/>
 
