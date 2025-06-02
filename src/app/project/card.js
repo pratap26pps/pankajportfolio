@@ -76,10 +76,10 @@ export function ThreeDCardDemo() {
           transition={{ duration: 0.5, delay: i * 0.1 }}
         >
           <CardContainer className="bg-gray-600">
-            <CardBody className="hover-card scale-90 -mt-32  bg-orange-300  border w-full sm:w-[30rem] h-auto rounded-xl p-6 dark:border-white/[0.2] border-black/[0.1]">
+            <CardBody className="hover-card lg:scale-90 md:scale-75 scale-[82%] -mt-32  bg-red-900  border w-full sm:w-[30rem] h-auto rounded-xl p-6 dark:border-white/[0.2] border-black/[0.1]">
               <CardItem
                 translateZ="50"
-                className="text-xl font-bold text-neutral-600 dark:text-white"
+                className="text-xl font-bold text-blue-500 dark:text-white"
               >
                 {project?.title}
               </CardItem>

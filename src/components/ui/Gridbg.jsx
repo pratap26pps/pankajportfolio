@@ -68,7 +68,7 @@ export default function PortfolioPage() {
   <h1 className="text-center text-2xl font-bold text-white mb-6">
     Technologies I&apos;ve Worked With
   </h1>
-  <div className="flex flex-wrap justify-center gap-4 text-white">
+  <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-col-3 justify-center gap-4 text-white">
     {[
       { name: "HTML", icon: "vscode-icons:file-type-html", desc: "Markup Language" },
       { name: "CSS", icon: "vscode-icons:file-type-css", desc: "Style Sheets" },
@@ -99,9 +99,9 @@ export default function PortfolioPage() {
    </SectionWrapper>
 
       <SectionWrapper id="contact" title="Contact Me">
-        <div className="flex flex-col-reverse lg:flex-row -ml-9 lg:ml-0 justify-between">
+        <div className="flex flex-col-reverse lg:flex-row -ml-12 lg:ml-0 justify-between">
           <ShineBorderDemo />
-          <div className="mt-3">
+          <div className="mt-3 scale-95">
            <LottieWrapper/>
           </div>
         </div>

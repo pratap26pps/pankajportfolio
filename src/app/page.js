@@ -35,9 +35,8 @@ export default function BackgroundBeamsDemo() {
       id: 1,
       name: "Pankaj Pratap Singh",
       designation: "Full-stack developer",
-      image:
-        "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80",
-    },
+      image:"/ps.png"
+      },
  
   ];
     const items = [
@@ -89,35 +88,38 @@ export default function BackgroundBeamsDemo() {
       {/* Home Page */}
       <div className="lg:h-[40rem] w-full bg-black relative flex flex-col items-center justify-center antialiased">
     
-      <div className="flex w-[80%]  justify-between scale-110  text-white fixed z-50 -mt-[176%] md:-mt-[45%] lg:-mt-[34%] ">
+      <div className="flex lg:w-[80%] md:w-[100%] w-[60%] justify-between lg:scale-110 scale-90  text-white fixed z-50 -mt-[140%] md:-mt-[75%] lg:-mt-[34%] ">
          <AnimatedTooltip items={people} />
           <div className="flex gap-7">   
           <AnimatedTooltip icons={items} />   
           </div>
       </div>
    
-        <div className="max-w-6xl mt-48 lg:mt-12 mx-auto p-4">
-          <div className="relative  z-10 text-6xl   bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 text-center font-sans font-bold">
-          <p>Hi! I'm Pankaj,</p> 
-          <p>a Full Stack Developer.</p>  
-          <p>here you'll learn about my journey as a</p> 
-          <TypewriterEffectSmooth words={words} className='flex justify-center'/>
-          </div>
-         
-      
-          <p className="text-neutral-500 max-w-lg mx-auto my-2  text-center relative z-10">
-           Mdu-Rohtak Haryana, India
-          </p>
-       <div className="ml-28 cursor-pointer lg:ml-0 md:ml-96">
-         <a href="#projects" >
-        <Button className="cursor-pointer"  borderRadius="1.75rem">
-         Show my work
-        </Button>
-         </a>
- 
-       </div>
-     
-        </div>
+<div className="max-w-6xl mx-auto p-4 mt-44 mb-56 lg:mb-0 lg:mt-20">
+  <div className="relative w-full z-10 text-center">
+    <h1 className="text-5xl lg:text-6xl font-bold font-sans bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 leading-tight">
+      <p>Hi! I'm Pankaj,</p>
+      <p>a Full Stack Developer.</p>
+      <p>Here you'll learn about my journey as a</p>
+    </h1>
+    <div className="mt-2">
+      <TypewriterEffectSmooth words={words} className="flex scale-200 lg:scale-100 justify-center" />
+    </div>
+  </div>
+
+  <p className="text-neutral-500 text-center mt-4 mb-6 relative z-10">
+    MDU - Rohtak, Haryana, India
+  </p>
+
+  <div className="flex justify-center lg:-ml-[40%]">
+    <a href="#projects">
+      <Button className="cursor-pointer" borderRadius="1.75rem">
+        Show my work
+      </Button>
+    </a>
+  </div>
+</div>
+
         <BackgroundBeams/>
       </div>
 

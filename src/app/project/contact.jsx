@@ -12,7 +12,7 @@ import { ShineBorder } from "@/components/magicui/shine-border";
 
 export function ShineBorderDemo() {
   return (
-    <Card className="relative overflow-hidden w-[350px]  lg:w-[750px] mx-auto bg-gradient-to-br from-[#1e1b4b] via-[#141324] to-[#11261e] border border-white/10 shadow-[0_0_40px_5px_rgba(160,124,254,0.3)] rounded-3xl p-6 backdrop-blur-md">
+    <Card className="relative overflow-hidden  w-[330px]  lg:w-[750px] mx-auto bg-gradient-to-br from-[#1e1b4b] via-[#141324] to-[#11261e] border border-white/10 shadow-[0_0_40px_5px_rgba(160,124,254,0.3)] rounded-3xl p-6 backdrop-blur-md">
       <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
 
       <CardHeader>
@@ -32,6 +32,7 @@ export function ShineBorderDemo() {
                 id="email"
                 type="email"
                 placeholder="name@example.com"
+                required
                 className="bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:ring-2 focus:ring-[#A07CFE] transition duration-300"
               />
             </div>
@@ -42,6 +43,7 @@ export function ShineBorderDemo() {
               <textarea
                 id="message"
                 rows={5}
+                required
                 className="bg-white/10 border border-white/20 text-white placeholder:text-white/50 w-full resize-none focus:ring-2 focus:ring-[#FE8FB5] transition duration-300 rounded-md p-3 leading-relaxed"
                 placeholder="Tell me about your project..."
               />
