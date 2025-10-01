@@ -1,5 +1,5 @@
-
 import "./globals.css";
+import AppToaster from "@/components/providers/Toaster";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,6 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <AppToaster />
         {children}
       </body>
     </html>
