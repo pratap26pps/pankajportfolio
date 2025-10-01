@@ -88,14 +88,14 @@ export default function BackgroundBeamsDemo() {
       {/* Home Page */}
       <div className="lg:h-[40rem] w-full bg-black relative flex flex-col items-center justify-center antialiased">
     
-      <div className="flex lg:w-[80%] md:w-[100%] w-[60%] justify-between lg:scale-110 scale-90  text-white fixed z-50 -mt-[140%] md:-mt-[75%] lg:-mt-[34%] ">
+      <div className="flex lg:w-[80%] md:w-[100%] w-[60%] justify-between lg:scale-110 scale-90 text-white fixed z-50 top-20 md:top-24 lg:top-28 left-1/2 -translate-x-1/2">
          <AnimatedTooltip items={people} />
           <div className="flex gap-7">   
           <AnimatedTooltip icons={items} />   
           </div>
       </div>
    
-<div className="max-w-6xl mx-auto p-4 mt-44 mb-56 lg:mb-0 lg:mt-20">
+<div className="max-w-6xl mx-auto p-4 mt-80 mb-56 md:mt-64 lg:mt-48 lg:mb-0">
   <div className="relative w-full z-10 text-center">
     <h1 className="text-5xl lg:text-6xl font-bold font-sans bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 leading-tight">
       <p>Hi! I'm Pankaj,</p>
@@ -111,20 +111,24 @@ export default function BackgroundBeamsDemo() {
     MDU - Rohtak, Haryana, India
   </p>
 
-  <div className="flex justify-center lg:-ml-[40%]">
-    <a href="#projects">
+  <div className="flex left-1/2 -translate-x-1/4 cursor-pointer items-center justify-center">
+   
       <Button className="cursor-pointer" borderRadius="1.75rem">
         Show my work
       </Button>
-    </a>
+    
   </div>
+
+ 
 </div>
+
+
 
         <BackgroundBeams/>
       </div>
 
       {/* every Section */}
-      <div className="">
+      <div  >
      <GridBackgroundDemo/>
 
       </div>

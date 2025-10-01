@@ -12,6 +12,16 @@ const fadeInUp = {
 export function ThreeDCardDemo() {
   const projects = [
     {
+      title: "Grida Neo Bharat",
+      description:
+        "EV servicing and accessories platform offering repair, battery sales with customer plans, admin-partner coordination and automated invoicing.",
+      date: "June 2025",
+      img: "gridaneo.png",
+      icon: ["skill-icons:nextjs-dark", "skill-icons:tailwindcss-dark"],
+
+      link: "https://www.gridaneobharat.com/",
+    },
+    {
       title: "E-commerce Platform",
       description:
         "Inspired by Flipkart/Amazon, the project lets one seller manage electronics and customers order via COD or online.",
@@ -48,16 +58,7 @@ export function ThreeDCardDemo() {
 
       link: "https://edtechperception.vercel.app/",
     },
-    {
-      title: "Blog Perception",
-      description:
-        "A modern blog app where users can write and share blogs, explore inspiring quotes, and enjoy trending GIFs in one place.",
-      date: "February 2025",
-      img: "Screenshot4.png",
-      icon: ["skill-icons:react-dark", "skill-icons:tailwindcss-dark"],
-
-      link: "https://pankajperception.vercel.app/",
-    },
+ 
   ];
 
   const openlinkhandler = (link) => {
