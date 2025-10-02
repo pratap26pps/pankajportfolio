@@ -82,13 +82,13 @@ export default function BackgroundBeamsDemo() {
       },
     ];
   return (
-    <div>
+    <div className="overflow-x-hidden">
       {/* navbar animation  */}
      <FloatingNav navItems={navItems} />
       {/* Home Page */}
       <div className=" h-[100vh] w-full bg-black relative flex flex-col items-center justify-center antialiased">
     
-      <div className="flex lg:w-[80%] md:w-[100%] w-[60%] justify-between lg:scale-110 scale-90 text-white fixed z-50 top-20 md:top-24 lg:top-28 left-1/2 -translate-x-1/2">
+      <div className="flex  lg:w-[80%] md:w-[100%] w-[90%] justify-between lg:scale-110 scale-90 text-white fixed z-50 top-10 lg:top-20 left-44 lg:left-1/2 -translate-x-1/2">
          <AnimatedTooltip items={people} />
           <div className="flex gap-7">   
           <AnimatedTooltip icons={items} />   
@@ -111,7 +111,7 @@ export default function BackgroundBeamsDemo() {
     MDU - Rohtak, Haryana, India
   </p>
 
-  <div className="flex left-1/2 -translate-x-1/4 cursor-pointer items-center justify-center">
+  <div className="flex lg:left-1/2 lg:-translate-x-1/4   cursor-pointer items-center justify-center">
    
       <Button className="cursor-pointer" borderRadius="1.75rem">
         Show my work
@@ -128,7 +128,7 @@ export default function BackgroundBeamsDemo() {
       </div>
 
       {/* every Section */}
-      <div>
+      <div  className="overflow-x-hidden">
      <GridBackgroundDemo/>
 
       </div>

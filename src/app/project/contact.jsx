@@ -40,7 +40,7 @@ export function ShineBorderDemo() {
   }
 
   return (
-    <Card className="relative overflow-hidden  w-[330px]  lg:w-[750px] mx-auto bg-gradient-to-br from-[#1e1b4b] via-[#141324] to-[#11261e] border border-white/10 shadow-[0_0_40px_5px_RGBA(160,124,254,0.3)] rounded-3xl p-6 backdrop-blur-md">
+    <Card className="relative right-4 overflow-hidden  w-[330px]  lg:w-[750px] mx-auto bg-gradient-to-br from-[#1e1b4b] via-[#141324] to-[#11261e] border border-white/10 shadow-[0_0_40px_5px_RGBA(160,124,254,0.3)] rounded-3xl p-6 backdrop-blur-md">
       <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
       <CardHeader>
         <CardDescription className="text-indigo-200 text-2xl">

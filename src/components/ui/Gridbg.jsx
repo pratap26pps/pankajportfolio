@@ -86,7 +86,7 @@ export default function PortfolioPage() {
       key={idx}
       className="flex items-center gap-4 px-6 py-5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl hover:bg-cyan-700/30 transition-all duration-300 shadow-md"
     >
-      <span className="text-4xl"> 
+      <span className="text-2xl"> 
         <Icon icon={skill.icon} />
       </span>
       <div>
@@ -102,7 +102,7 @@ export default function PortfolioPage() {
       <SectionWrapper id="contact" title="Contact Me">
         <div className="flex flex-col-reverse lg:flex-row -ml-12 lg:ml-0 justify-between">
           <ShineBorderDemo />
-          <div className="mt-3 scale-95">
+          <div className="mt-3  scale-90">
            <LottieWrapper/>
           </div>
         </div>
