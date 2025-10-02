@@ -39,7 +39,7 @@ const SectionWrapper = ({ id, title, children }) => (
     <motion.div
       variants={fadeInUp}
       initial="hidden"
-      whileInView="visible"
+      whileInView="visible" 
       viewport={{ once: false, amount: 0.3 }}
       className="relative z-10 max-w-5xl mx-auto px-4 text-center"
     >
