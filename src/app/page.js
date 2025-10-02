@@ -35,7 +35,7 @@ export default function BackgroundBeamsDemo() {
       id: 1,
       name: "Pankaj Pratap Singh",
       designation: "Full-stack developer",
-      image:"/ps.png"
+      image:"/image.png"
       },
  
   ];

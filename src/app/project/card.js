@@ -76,11 +76,11 @@ export function ThreeDCardDemo() {
           variants={fadeInUp}
           transition={{ duration: 0.5, delay: i * 0.1 }}
         >
-          <CardContainer className="bg-gray-600">
-            <CardBody className="hover-card lg:scale-90 md:scale-75 scale-[82%] -mt-32  bg-red-900  border w-full sm:w-[30rem] h-auto rounded-xl p-6 dark:border-white/[0.2] border-black/[0.1]">
+          <CardContainer className="bg-gray-800">
+            <CardBody className="hover-card lg:scale-90 md:scale-75 scale-[82%] -mt-32  bg-gray-500  border w-full sm:w-[30rem] h-auto rounded-xl p-6 dark:border-white/[0.2] border-black/[0.1]">
               <CardItem
                 translateZ="50"
-                className="text-xl font-bold text-blue-500 dark:text-white"
+                className="text-xl font-bold text-white"
               >
                 {project?.title}
               </CardItem>
@@ -114,7 +114,7 @@ export function ThreeDCardDemo() {
                   translateZ={20}
                   translateX={-40}
                   as="button"
-                  className="px-4 py-2 rounded-xl  font-bold text-black"
+                  className="px-4 py-2 rounded-xl  font-bold text-white"
                 >
                   {project?.date}
                 </CardItem>
