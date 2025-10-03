@@ -88,7 +88,7 @@ export default function BackgroundBeamsDemo() {
       {/* Home Page */}
       <div className=" h-[100vh] w-full bg-black relative flex flex-col items-center justify-center antialiased">
     
-      <div className="flex  lg:w-[80%] md:w-[100%] w-[90%] justify-between lg:scale-110 scale-90 text-white fixed z-50 top-10 lg:top-20 left-44 lg:left-1/2 -translate-x-1/2">
+      <div className="flex  lg:w-[80%] md:w-[100%] w-[90%] justify-between lg:scale-110 scale-90 text-white fixed z-50 top-10 lg:top-20 left-48 lg:left-1/2 -translate-x-1/2">
          <AnimatedTooltip items={people} />
           <div className="flex gap-7">   
           <AnimatedTooltip icons={items} />   
