@@ -61,7 +61,7 @@ export default function BackgroundBeamsDemo() {
       {
         id: 4,
         name: "Resume",
-        link: "https://drive.google.com/file/d/11l3UQr-2bmbP5wDAzmUQxmtjs7wryv8T/view?usp=drive_link",
+        link: "https://drive.google.com/file/d/1I6-326Agso1BIU45K0grmm0lEl3SIbG3/view?usp=drivesdk",
         image: "/file.png"  
       },
     ];
