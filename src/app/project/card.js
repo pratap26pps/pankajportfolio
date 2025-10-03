@@ -41,7 +41,7 @@ export function ThreeDCardDemo() {
         "simple-icons:express",
         "skill-icons:tailwindcss-dark",
       ],
-      link: "https://embproto.vercel.app/",
+      link: "https://github.com/anuragpardeshii/TEN-AI",
     },
     {
       title: "Edtech Perception",
