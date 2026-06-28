@@ -7,10 +7,12 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const FloatingNav = ({
   navItems,
-  className
+  className,
+  inline = false,
 }) => {
   const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(true);
@@ -49,18 +51,23 @@ export const FloatingNav = ({
           ease: "easeInOut",
         }}
         className={cn(
-          "lg:flex md:flex max-w-fit hidden sm:block fixed top-8 inset-x-0 mx-auto backdrop-blur-md bg-black/80 border border-neutral-800 rounded-xl shadow-2xl z-[5000] px-6 py-3 items-center justify-center gap-2",
+          "hidden sm:flex shrink-0 whitespace-nowrap backdrop-blur-md bg-white/85 dark:bg-black/80 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-2xl px-3 md:px-4 lg:px-5 py-2 md:py-2.5 items-center justify-center gap-1 md:gap-1.5 transition-colors duration-300",
+          inline
+            ? "relative z-[5000]"
+            : "fixed top-8 inset-x-0 mx-auto z-[5000] max-w-fit",
           className
         )}>
         
         {/* Brand Name / Logo Space */}
-        <div className="hidden lg:flex items-center mr-6 pr-6 border-r border-neutral-800">
+        <div className="hidden xl:flex items-center mr-3 xl:mr-4 pr-3 xl:pr-4 border-r border-neutral-200 dark:border-neutral-800">
           <a 
-            href="#top"
+            href="/"
             className="cursor-pointer hover:scale-110 transition-transform duration-300"
             onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (window.location.pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
             }}
           >
             <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
@@ -70,14 +77,14 @@ export const FloatingNav = ({
         </div>
 
         {/* Navigation Items */}
-        <div className="flex gap-2 relative">
+        <div className="flex gap-0.5 md:gap-1 relative">
           {navItems.map((navItem, idx) => (
             <a
               key={`link=${idx}`}
               href={navItem.link}
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="relative px-5 py-2 text-neutral-400 hover:text-white font-medium text-sm tracking-wide transition-colors duration-300 z-10">
+              className="relative px-2 md:px-2.5 lg:px-3 py-1.5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white font-medium text-xs md:text-sm tracking-wide transition-colors duration-300 z-10 whitespace-nowrap">
               
               {/* Animated Background */}
               {hoveredIndex === idx && (
@@ -100,6 +107,10 @@ export const FloatingNav = ({
               <span className="relative z-10">{navItem.name}</span>
             </a>
           ))}
+        </div>
+
+        <div className="ml-1 md:ml-1.5 pl-1.5 md:pl-2 border-l border-neutral-200 dark:border-neutral-800 shrink-0">
+          <ThemeToggle />
         </div>
 
         {/* Decorative Accent Line */}

@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CardBody, CardContainer, CardItem } from "../../components/ui/3d-card";
 import { Icon } from "@iconify/react";
 
@@ -9,67 +9,46 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0 },
 };
 
+function projectImageSrc(img) {
+  if (!img) return "";
+  return img.startsWith("/") ? img : `/${img}`;
+}
+
 export function ThreeDCardDemo() {
-  const projects = [
-    {
-      title: "Grida Neo Bharat",
-      description:
-        "EV servicing and accessories platform offering repair, battery sales with customer plans, admin-partner coordination and automated invoicing.",
-      date: "June 2025",
-      img: "gridaneo.png",
-      icon: ["skill-icons:nextjs-dark", "skill-icons:tailwindcss-dark"],
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-      link: "https://www.gridaneobharat.com/",
-    },
-    {
-      title: "E-commerce Platform",
-      description:
-        "Inspired by Flipkart/Amazon, the project lets one seller manage electronics and customers order via COD or online.",
-      date: "May 2025",
-      link: "https://embproto.vercel.app/",
-      icon: ["skill-icons:nextjs-dark", "skill-icons:tailwindcss-dark"],
-      img: "Screenshot.png",
-    },
-    {
-      title: "TEN AI",
-      description:
-        "An AI-powered platform where users can interact with multiple AI agents via chat and voice calls to get informative, real-time answers to their queries and problems.",
-      date: "March 2025",
-      img: "Screenshot2.png",
-      icon: [
-        "skill-icons:react-dark",
-        "simple-icons:express",
-        "skill-icons:tailwindcss-dark",
-      ],
-      link: "https://github.com/anuragpardeshii/TEN-AI",
-    },
-    {
-      title: "Edtech Perception",
-      description:
-        "A full-stack EdTech platform where instructors upload courses, students purchase and enroll, and an admin manages users, payments, and course content.",
-      date: "January 2025",
-      img: "Screenshot3.png",
-      icon: [
-        "skill-icons:react-dark",
-        "logos:redux",
-        "simple-icons:express",
-        "skill-icons:tailwindcss-dark",
-      ],
-
-      link: "https://edtechperception.vercel.app/",
-    },
- 
-  ];
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.ok) setProjects(data.items || []);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   const openlinkhandler = (link) => {
     window.open(link, "_blank");
   };
 
+  if (loading) {
+    return <p className="text-neutral-500 dark:text-neutral-400">Loading projects...</p>;
+  }
+
+  if (projects.length === 0) {
+    return (
+      <p className="text-neutral-500 dark:text-neutral-400">
+        Projects will appear here once added from the admin dashboard.
+      </p>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-40">
       {projects.map((project, i) => (
         <motion.div
-          key={i}
+          key={project.id || i}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -78,10 +57,7 @@ export function ThreeDCardDemo() {
         >
           <CardContainer className="bg-gray-800">
             <CardBody className="hover-card lg:scale-90 md:scale-75 scale-[82%] -mt-32  bg-gray-500  border w-full sm:w-[30rem] h-auto rounded-xl p-6 dark:border-white/[0.2] border-black/[0.1]">
-              <CardItem
-                translateZ="50"
-                className="text-xl font-bold text-white"
-              >
+              <CardItem translateZ="50" className="text-xl font-bold text-white">
                 {project?.title}
               </CardItem>
               <CardItem
@@ -92,19 +68,14 @@ export function ThreeDCardDemo() {
                 {project?.description}
               </CardItem>
               <span className="flex gap-2 mt-2">
-                {project.icon.map((iconName, index) => (
+                {(project.icon || []).map((iconName, index) => (
                   <Icon key={index} icon={iconName} className="text-2xl" />
                 ))}
               </span>
 
-              <CardItem
-                translateZ="100"
-                rotateX={20}
-                rotateZ={-10}
-                className="w-full mt-2"
-              >
+              <CardItem translateZ="100" rotateX={20} rotateZ={-10} className="w-full mt-2">
                 <img
-                  src={project?.img}
+                  src={projectImageSrc(project?.img)}
                   alt={project?.title}
                   className="h-60 w-full object-cover rounded-xl transition duration-300"
                 />

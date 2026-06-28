@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "title": "Grida Neo Bharat",
+    "description": "EV servicing and accessories platform offering repair, battery sales with customer plans, admin-partner coordination and automated invoicing.",
+    "date": "June 2025",
+    "img": "/gridaneo.png",
+    "icon": [
+      "skill-icons:nextjs-dark",
+      "skill-icons:tailwindcss-dark"
+    ],
+    "link": "https://www.gridaneobharat.com/",
+    "visible": true
+  },
+  {
+    "id": "2",
+    "title": "E-commerce Platform",
+    "description": "Inspired by Flipkart/Amazon, the project lets one seller manage electronics and customers order via COD or online.",
+    "date": "May 2025",
+    "img": "/Screenshot.png",
+    "icon": [
+      "skill-icons:nextjs-dark",
+      "skill-icons:tailwindcss-dark"
+    ],
+    "link": "https://embproto.vercel.app/",
+    "visible": true
+  },
+  {
+    "id": "3",
+    "title": "TEN AI",
+    "description": "An AI-powered platform where users can interact with multiple AI agents via chat and voice calls to get informative, real-time answers to their queries and problems.",
+    "date": "March 2025",
+    "img": "/Screenshot2.png",
+    "icon": [
+      "skill-icons:react-dark",
+      "simple-icons:express",
+      "skill-icons:tailwindcss-dark"
+    ],
+    "link": "https://github.com/anuragpardeshii/TEN-AI",
+    "visible": true
+  },
+  {
+    "id": "4",
+    "title": "Edtech Perception",
+    "description": "A full-stack EdTech platform where instructors upload courses, students purchase and enroll, and an admin manages users, payments, and course content.",
+    "date": "January 2025",
+    "img": "/Screenshot3.png",
+    "icon": [
+      "skill-icons:react-dark",
+      "logos:redux",
+      "simple-icons:express",
+      "skill-icons:tailwindcss-dark"
+    ],
+    "link": "https://edtechperception.vercel.app/",
+    "visible": true
+  }
+]

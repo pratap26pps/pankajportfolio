@@ -11,7 +11,15 @@ const transporter = nodemailer.createTransport({
 });
  
 
-export async function sendContactToOwner({ email, message }) {
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+export async function sendContactToOwner({ name, contactNumber, email, message }) {
   if (!process.env.MAIL_AUTH) throw new Error("MAIL_AUTH is not configured");
   await transporter.sendMail({
     from: `"Portfolio Contact" <${process.env.MAIL_AUTH}>`,
@@ -21,9 +29,11 @@ export async function sendContactToOwner({ email, message }) {
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 650px; margin:auto;">
         <h2>New message from portfolio contact form</h2>
-        <p><b>From:</b> ${email}</p>
+        <p><b>Name:</b> ${escapeHtml(name)}</p>
+        <p><b>Contact Number:</b> ${escapeHtml(contactNumber)}</p>
+        <p><b>Email:</b> ${escapeHtml(email)}</p>
         <p><b>Message:</b></p>
-        <div style="white-space: pre-wrap; background:#f9fafb; border:1px solid #e5e7eb; padding:12px; border-radius:8px;">${message}</div>
+        <div style="white-space: pre-wrap; background:#f9fafb; border:1px solid #e5e7eb; padding:12px; border-radius:8px;">${escapeHtml(message)}</div>
       </div>
     `,
   });

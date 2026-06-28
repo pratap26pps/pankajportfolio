@@ -1,0 +1,82 @@
+{
+  "intro": {
+    "title": "Services I Offer",
+    "subtitle": "End-to-end development solutions for startups, businesses, and entrepreneurs."
+  },
+  "servicesSectionTitle": "What I Build",
+  "packagesSectionTitle": "Service Packages",
+  "packagesSectionSubtitle": "Flexible pricing based on project scope and requirements.",
+  "services": [
+    {
+      "id": "1",
+      "title": "Website Development",
+      "description": "Modern, responsive, and SEO-friendly websites built with Next.js, React, and Tailwind CSS.",
+      "icon": "mdi:web",
+      "visible": true
+    },
+    {
+      "id": "2",
+      "title": "Mobile Apps",
+      "description": "Cross-platform and native mobile applications with smooth UI and scalable architecture.",
+      "icon": "mdi:cellphone",
+      "visible": true
+    },
+    {
+      "id": "3",
+      "title": "E-commerce",
+      "description": "Online stores with secure payments, product management, and conversion-focused design.",
+      "icon": "mdi:cart-outline",
+      "visible": true
+    },
+    {
+      "id": "4",
+      "title": "Admin Panels",
+      "description": "Custom dashboards to manage users, content, orders, analytics, and business operations.",
+      "icon": "mdi:view-dashboard-outline",
+      "visible": true
+    },
+    {
+      "id": "5",
+      "title": "API & Backend",
+      "description": "RESTful APIs, authentication, databases, and third-party integrations with Node.js.",
+      "icon": "mdi:server-network",
+      "visible": true
+    },
+    {
+      "id": "6",
+      "title": "UI/UX Design",
+      "description": "Clean, accessible interfaces with animations and brand-focused visual design.",
+      "icon": "mdi:palette-outline",
+      "visible": true
+    }
+  ],
+  "packages": [
+    {
+      "id": "1",
+      "name": "Basic Package",
+      "subtitle": "Business website",
+      "price": "₹15,000–₹25,000",
+      "features": ["Up to 5 pages", "Responsive design", "Contact form", "Basic SEO setup"],
+      "highlight": false,
+      "visible": true
+    },
+    {
+      "id": "2",
+      "name": "Standard Package",
+      "subtitle": "Website + Admin Panel",
+      "price": "₹30,000–₹60,000",
+      "features": ["Custom website", "Admin dashboard", "Content management", "User authentication"],
+      "highlight": true,
+      "visible": true
+    },
+    {
+      "id": "3",
+      "name": "Premium Package",
+      "subtitle": "Website + Mobile App",
+      "price": "₹80,000+",
+      "features": ["Full web platform", "Mobile application", "Advanced features", "Priority support"],
+      "highlight": false,
+      "visible": true
+    }
+  ]
+}

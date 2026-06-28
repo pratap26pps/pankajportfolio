@@ -1,0 +1,105 @@
+{
+  "pageTitle": "Certifications",
+  "pageSubtitle": "Academic approvals, internships, professional certificates, and course completions.",
+  "certifications": [
+    {
+      "id": "1",
+      "title": "No Objection Certificate – Internship",
+      "issuer": "Maharshi Dayanand University (UIET)",
+      "date": "February 2026",
+      "description": "Official NOC permitting internship at Ruhil Future Technologies from 17 Feb 2026 to 30 Apr 2026 during B.Tech 8th semester.",
+      "category": "Academic",
+      "image": "/certifications/noc-ruhil-internship.png",
+      "verifyLink": "",
+      "visible": true
+    },
+    {
+      "id": "2",
+      "title": "Internship Completion Certificate",
+      "issuer": "GridaNeo Bharat Pvt. Ltd.",
+      "date": "December 2025",
+      "description": "Full-Stack Developer Intern (Aug–Nov 2025) contributing to clean energy technology solutions in remote mode.",
+      "category": "Internship",
+      "image": "/certifications/gridaneo-internship.png",
+      "verifyLink": "",
+      "visible": true
+    },
+    {
+      "id": "3",
+      "title": "Letter of Recommendation",
+      "issuer": "The Entrepreneurship Network",
+      "date": "May 2025",
+      "description": "MERN Stack Developer internship recommendation highlighting communication, reliability, and problem-solving skills.",
+      "category": "Internship",
+      "image": "/certifications/ten-recommendation.png",
+      "verifyLink": "",
+      "visible": true
+    },
+    {
+      "id": "4",
+      "title": "Certificate of Completion",
+      "issuer": "The Entrepreneurship Network",
+      "date": "May 2025",
+      "description": "Successfully completed MERN Stack Developer internship from Feb 2025 to May 2025 with Limitless Technologies LLP.",
+      "category": "Internship",
+      "image": "/certifications/ten-completion.png",
+      "verifyLink": "",
+      "visible": true
+    },
+    {
+      "id": "5",
+      "title": "Software Engineering Job Simulation",
+      "issuer": "Electronic Arts & Forage",
+      "date": "June 2025",
+      "description": "Completed EA Software Engineering simulation including feature proposals, game object classes, and live bug fixes.",
+      "category": "Simulation",
+      "image": "/certifications/ea-forage-simulation.png",
+      "verifyLink": "",
+      "visible": true
+    },
+    {
+      "id": "6",
+      "title": "Next.js App Router Fundamentals",
+      "issuer": "Vercel",
+      "date": "June 2025",
+      "description": "Certificate of completion for Next.js App Router Fundamentals course.",
+      "category": "Course",
+      "image": "/certifications/vercel-nextjs.png",
+      "verifyLink": "",
+      "visible": true
+    },
+    {
+      "id": "7",
+      "title": "Hands On React JS From Beginner to Expert",
+      "issuer": "Udemy",
+      "date": "January 2025",
+      "description": "4.5-hour React JS course completion certificate by Learnify IT.",
+      "category": "Course",
+      "image": "/certifications/udemy-react.png",
+      "verifyLink": "https://ude.my/UC-ec6865e6-51fa-40dd-a9ea-c03467cea72c",
+      "visible": true
+    },
+    {
+      "id": "8",
+      "title": "Introduction to C Programming",
+      "issuer": "DataFlair",
+      "date": "December 2024",
+      "description": "Free training program on Introduction to C Programming completed successfully.",
+      "category": "Course",
+      "image": "/certifications/dataflair-c-programming.png",
+      "verifyLink": "",
+      "visible": true
+    },
+    {
+      "id": "9",
+      "title": "Web Development with HTML, CSS & JS",
+      "issuer": "DataFlair",
+      "date": "March 2024",
+      "description": "Free training program on Web Development with HTML, CSS & JavaScript completed successfully.",
+      "category": "Course",
+      "image": "/certifications/dataflair-web-development.png",
+      "verifyLink": "",
+      "visible": true
+    }
+  ]
+}

@@ -10,7 +10,9 @@ import {
 } from "motion/react";
 
 export const AnimatedTooltip = ({
-  items=[],icons=[]
+  items = [],
+  icons = [],
+  spaced = false,
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const springConfig = { stiffness: 100, damping: 5 };
@@ -27,11 +29,13 @@ export const AnimatedTooltip = ({
     window.open(link);
   }
 
-  return (
+  const itemGap = spaced ? "group relative" : "group relative -mr-4";
+
+  const content = (
     <>
-      {items.map((item, idx) => (
+      {items.map((item) => (
         <div
-          className="group relative -mr-4"
+          className={itemGap}
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}>
@@ -74,12 +78,11 @@ export const AnimatedTooltip = ({
             src={item.image}
             alt={item.name}
             className="relative !m-0 h-14 w-14 rounded-full border-2 border-white object-cover object-top !p-0 transition duration-500 group-hover:z-30 group-hover:scale-105" />
-            
         </div>
       ))}
-        {icons.map((icon, idx) => (
+      {icons.map((icon) => (
         <div
-          className="group relative -mr-4"
+          className={itemGap}
           key={icon.name}
           onMouseEnter={() => setHoveredIndex(icon.id)}
           onMouseLeave={() => setHoveredIndex(null)}>
@@ -108,24 +111,28 @@ export const AnimatedTooltip = ({
                   className="absolute inset-x-10 -bottom-px z-30 h-px w-[20%] bg-gradient-to-r from-transparent via-emerald-500 to-transparent" />
                 <div
                   className="absolute -bottom-px left-10 z-30 h-px w-[40%] bg-gradient-to-r from-transparent via-sky-500 to-transparent" />
-                <div className="relative  z-30 text-base font-bold text-white">
+                <div className="relative z-30 text-base font-bold text-white">
                   {icon.name}
                 </div>
-                
               </motion.div>
             )}
           </AnimatePresence>
-          <Image 
-           onClick={()=>openlinkhandler(icon.link)}
-           onMouseMove={handleMouseMove}
+          <Image
+            onClick={() => openlinkhandler(icon.link)}
+            onMouseMove={handleMouseMove}
             height={100}
             width={100}
             src={icon.image}
             alt={icon.name}
-            className="relative gap-9 cursor-pointer  !m-0 h-10 w-10 object-cover object-top !p-0 transition duration-500 group-hover:z-30 group-hover:scale-105" />
-            
+            className="relative cursor-pointer !m-0 h-10 w-10 object-cover object-top !p-0 transition duration-500 group-hover:z-30 group-hover:scale-105" />
         </div>
       ))}
     </>
   );
+
+  if (spaced) {
+    return <div className="flex items-center gap-2 sm:gap-3">{content}</div>;
+  }
+
+  return content;
 };

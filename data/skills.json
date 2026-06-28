@@ -1,0 +1,82 @@
+{
+  "sectionTitle": "Technologies I've Worked With",
+  "skills": [
+    {
+      "id": "1",
+      "name": "HTML",
+      "icon": "vscode-icons:file-type-html",
+      "desc": "Markup Language",
+      "visible": true
+    },
+    {
+      "id": "2",
+      "name": "CSS",
+      "icon": "vscode-icons:file-type-css",
+      "desc": "Style Sheets",
+      "visible": true
+    },
+    {
+      "id": "3",
+      "name": "JavaScript",
+      "icon": "logos:javascript",
+      "desc": "Scripting Language",
+      "visible": true
+    },
+    {
+      "id": "4",
+      "name": "React",
+      "icon": "skill-icons:react-dark",
+      "desc": "JS Framework",
+      "visible": true
+    },
+    {
+      "id": "5",
+      "name": "Next.js",
+      "icon": "skill-icons:nextjs-dark",
+      "desc": "React Framework",
+      "visible": true
+    },
+    {
+      "id": "6",
+      "name": "Redux",
+      "icon": "logos:redux",
+      "desc": "State Manager",
+      "visible": true
+    },
+    {
+      "id": "7",
+      "name": "Node.js",
+      "icon": "logos:nodejs-icon",
+      "desc": "Backend Runtime",
+      "visible": true
+    },
+    {
+      "id": "8",
+      "name": "MongoDB",
+      "icon": "devicon:mongodb",
+      "desc": "NoSQL DB",
+      "visible": true
+    },
+    {
+      "id": "9",
+      "name": "Express.js",
+      "icon": "simple-icons:express",
+      "desc": "Backend Framework",
+      "visible": true
+    },
+    {
+      "id": "10",
+      "name": "Tailwind CSS",
+      "icon": "skill-icons:tailwindcss-dark",
+      "desc": "Utility-first CSS",
+      "visible": true
+    },
+    {
+      "id": "11",
+      "name": "Git",
+      "icon": "logos:git-icon",
+      "desc": "Version Control",
+      "visible": true
+    }
+  ]
+}
