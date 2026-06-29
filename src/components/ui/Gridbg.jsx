@@ -9,13 +9,13 @@ import { BoxRevealDemo } from "@/app/project/about";
 import { ShineBorderDemo } from "@/app/project/contact";
 import { TestimonialsSection } from "@/app/project/testimonials";
 import { SkillsSection } from "@/app/project/skills";
-// Animation variants
+
 const fadeInUp = {
-  hidden: { opacity: 0, y: 100 },
+  hidden: { opacity: 0, y: 48 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.55, ease: "easeOut" },
   },
 };
 
@@ -24,8 +24,10 @@ const LottieWrapper = dynamic(() => import("@/app/project/lottiwrapper"), {
 });
 
 const SectionWrapper = ({ id, title, children }) => (
-  <section id={id} className="relative w-full min-h-screen snap-start py-20 bg-zinc-100 dark:bg-zinc-900 text-neutral-900 dark:text-white flex flex-col justify-center transition-colors duration-300">
-    {/* Background grid */}
+  <section
+    id={id}
+    className="relative w-full min-h-0 lg:min-h-screen snap-start py-10 sm:py-14 lg:py-20 scroll-mt-24 lg:scroll-mt-28 bg-zinc-100 dark:bg-zinc-900 text-neutral-900 dark:text-white flex flex-col justify-center transition-colors duration-300"
+  >
     <div
       className={cn(
         "absolute inset-0 z-0",
@@ -36,15 +38,14 @@ const SectionWrapper = ({ id, title, children }) => (
     />
     <div className="pointer-events-none absolute inset-0 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black" />
 
-    {/* Content */}
     <motion.div
       variants={fadeInUp}
       initial="hidden"
-      whileInView="visible" 
-      viewport={{ once: false, amount: 0.3 }}
-      className="relative z-10 max-w-5xl mx-auto px-4 text-center"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.08, margin: "-40px 0px -80px 0px" }}
+      className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center"
     >
-      <h2 className="text-4xl sm:text-6xl font-bold bg-gradient-to-b from-neutral-800 to-neutral-500 dark:from-neutral-200 dark:to-neutral-500 bg-clip-text text-transparent -mt-16 mb-11">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-b from-neutral-800 to-neutral-500 dark:from-neutral-200 dark:to-neutral-500 bg-clip-text text-transparent mt-0 sm:-mt-2 lg:-mt-16 mb-6 sm:mb-8 lg:mb-11">
         {title}
       </h2>
       {children}
@@ -55,10 +56,8 @@ const SectionWrapper = ({ id, title, children }) => (
 export default function PortfolioPage() {
   return (
     <div>
-      <SectionWrapper  id="projects" title="Project">
-        <div>
-          <ThreeDCardDemo />
-        </div>
+      <SectionWrapper id="projects" title="Project">
+        <ThreeDCardDemo />
       </SectionWrapper>
 
       <SectionWrapper id="about" title="About My Journey">
@@ -66,21 +65,21 @@ export default function PortfolioPage() {
       </SectionWrapper>
 
       <SectionWrapper id="testimonials" title="Testimonials">
-        <p className="text-neutral-600 dark:text-neutral-400 mb-8 -mt-4">
+        <p className="text-neutral-600 dark:text-neutral-400 mb-6 sm:mb-8 -mt-2">
           Endorsements from past clients
         </p>
         <TestimonialsSection />
       </SectionWrapper>
 
-   <SectionWrapper id="skills" title="Skills">
+      <SectionWrapper id="skills" title="Skills">
         <SkillsSection />
-   </SectionWrapper>
+      </SectionWrapper>
 
       <SectionWrapper id="contact" title="Contact Me">
-        <div className="flex flex-col-reverse lg:flex-row -ml-12 lg:ml-0 justify-between">
+        <div className="flex flex-col-reverse lg:flex-row gap-6 lg:gap-8 items-center justify-center lg:justify-between">
           <ShineBorderDemo />
-          <div className="mt-3  scale-90">
-           <LottieWrapper/>
+          <div className="w-full max-w-[280px] sm:max-w-[340px] mx-auto lg:mx-0 flex justify-center">
+            <LottieWrapper />
           </div>
         </div>
       </SectionWrapper>

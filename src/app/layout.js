@@ -1,7 +1,6 @@
 import "./globals.css";
 import AppToaster from "@/components/providers/Toaster";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Footer from "@/components/ui/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import SiteHeader from "@/components/ui/SiteHeader";
@@ -27,9 +26,6 @@ export default function RootLayout({ children }) {
       <body className="overflow-x-hidden bg-background text-foreground transition-colors duration-300">
         <ThemeProvider>
           <AppToaster />
-          <div className="sm:hidden fixed top-6 right-6 z-[5001]">
-            <ThemeToggle />
-          </div>
           <SiteHeader />
           {children}
           <WhatsAppButton />

@@ -45,18 +45,19 @@ export function ThreeDCardDemo() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-40">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-x-40 w-full">
       {projects.map((project, i) => (
         <motion.div
           key={project.id || i}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1, margin: "-40px 0px" }}
           variants={fadeInUp}
-          transition={{ duration: 0.5, delay: i * 0.1 }}
+          transition={{ duration: 0.45, delay: i * 0.08 }}
+          className="w-full flex justify-center"
         >
-          <CardContainer className="bg-gray-800">
-            <CardBody className="hover-card lg:scale-90 md:scale-75 scale-[82%] -mt-32  bg-gray-500  border w-full sm:w-[30rem] h-auto rounded-xl p-6 dark:border-white/[0.2] border-black/[0.1]">
+          <CardContainer className="bg-gray-800 w-full py-8 sm:py-12 lg:py-20">
+            <CardBody className="hover-card w-full max-w-md mx-auto md:max-w-none md:scale-75 lg:scale-90 md:-mt-12 lg:-mt-32 bg-gray-500 border h-auto rounded-xl p-4 sm:p-6 dark:border-white/[0.2] border-black/[0.1] sm:w-[30rem]">
               <CardItem translateZ="50" className="text-xl font-bold text-white">
                 {project?.title}
               </CardItem>
@@ -80,21 +81,21 @@ export function ThreeDCardDemo() {
                   className="h-60 w-full object-cover rounded-xl transition duration-300"
                 />
               </CardItem>
-              <div className="flex justify-between items-center mt-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mt-6">
                 <CardItem
                   translateZ={20}
-                  translateX={-40}
+                  translateX={0}
                   as="button"
-                  className="px-4 py-2 rounded-xl  font-bold text-white"
+                  className="px-4 py-2 rounded-xl font-bold text-white"
                 >
                   {project?.date}
                 </CardItem>
                 <CardItem
                   onClick={() => openlinkhandler(project?.link)}
                   translateZ={20}
-                  translateX={40}
+                  translateX={0}
                   as="button"
-                  className="px-4 py-2 cursor-pointer rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+                  className="px-4 py-2 cursor-pointer rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold min-h-[44px]"
                 >
                   live link
                 </CardItem>

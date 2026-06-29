@@ -46,10 +46,10 @@ const highlights = [
 
 export function BoxRevealDemo() {
   return (
-    <NeonGradientCard className="w-full scale-95 max-w-5xl mx-auto rounded-3xl shadow-xl">
-      <div className="bg-white dark:bg-black p-6 md:p-8 transition-colors duration-300">
+    <NeonGradientCard className="w-full max-w-5xl mx-auto rounded-3xl shadow-xl lg:scale-95">
+      <div className="bg-white dark:bg-black p-4 sm:p-6 md:p-8 transition-colors duration-300">
         <BoxReveal boxColor={"#7c3aed"} duration={0.5}>
-          <ol className="mt-8 text-left text-neutral-700 dark:text-indigo-100 text-sm md:text-base leading-relaxed max-w-3xl mx-auto space-y-6 list-none">
+          <ol className="mt-4 sm:mt-8 text-left text-neutral-700 dark:text-indigo-100 text-sm md:text-base leading-relaxed max-w-3xl mx-auto space-y-5 sm:space-y-6 list-none">
             {highlights.map((item, index) => (
               <li key={index} className="flex gap-4">
                 <span className="flex-shrink-0 w-9 h-9 rounded-full overflow-hidden border border-[#7c3aed]/30 bg-white dark:bg-neutral-900 flex items-center justify-center mt-0.5">

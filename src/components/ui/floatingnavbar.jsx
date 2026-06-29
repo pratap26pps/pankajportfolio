@@ -51,7 +51,7 @@ export const FloatingNav = ({
           ease: "easeInOut",
         }}
         className={cn(
-          "hidden sm:flex shrink-0 whitespace-nowrap backdrop-blur-md bg-white/85 dark:bg-black/80 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-2xl px-3 md:px-4 lg:px-5 py-2 md:py-2.5 items-center justify-center gap-1 md:gap-1.5 transition-colors duration-300",
+          "hidden lg:flex shrink-0 whitespace-nowrap backdrop-blur-md bg-white/85 dark:bg-black/80 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-2xl px-3 md:px-4 lg:px-5 py-2 md:py-2.5 items-center justify-center gap-1 md:gap-1.5 transition-colors duration-300",
           inline
             ? "relative z-[5000]"
             : "fixed top-8 inset-x-0 mx-auto z-[5000] max-w-fit",

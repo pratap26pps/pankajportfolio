@@ -94,28 +94,26 @@ export const TypewriterEffectSmooth = ({
   });
   const renderWords = () => {
     return (
-      <div>
-        {wordsArray.map((word, idx) => {
-          return (
-            <div key={`word-${idx}`} className="inline-block">
-              {word.text.map((char, index) => (
-                <span
-                  key={`char-${index}`}
-                  className={cn(`dark:text-white text-black `, word.className)}>
-                  {char}
-                </span>
-              ))}
-            </div>
-          );
-        })}
-      </div>
+      <span className="inline whitespace-nowrap">
+        {wordsArray.map((word, idx) => (
+          <span key={`word-${idx}`} className="inline whitespace-nowrap">
+            {word.text.map((char, index) => (
+              <span
+                key={`char-${index}`}
+                className={cn("inline", word.className)}>
+                {char}
+              </span>
+            ))}
+          </span>
+        ))}
+      </span>
     );
   };
 
   return (
-    <div className={cn("flex space-x-1 my-6", className)}>
+    <div className={cn("flex items-center justify-center my-4 sm:my-6 w-full max-w-full overflow-hidden", className)}>
       <motion.div
-        className="overflow-hidden pb-2"
+        className="overflow-hidden whitespace-nowrap inline-block max-w-full"
         initial={{
           width: "0%",
         }}
@@ -128,12 +126,10 @@ export const TypewriterEffectSmooth = ({
           delay: 1,
         }}>
         <div
-          className="text-xs sm:text-base md:text-xl lg:text:3xl xl:text-5xl font-bold"
-          style={{
-            whiteSpace: "nowrap",
-          }}>
-          {renderWords()}{" "}
-        </div>{" "}
+          className="whitespace-nowrap font-bold text-center leading-none tracking-tight"
+          style={{ fontSize: "clamp(11px, 2.6vw, 48px)" }}>
+          {renderWords()}
+        </div>
       </motion.div>
       <motion.span
         initial={{
@@ -144,12 +140,11 @@ export const TypewriterEffectSmooth = ({
         }}
         transition={{
           duration: 0.8,
-
           repeat: Infinity,
           repeatType: "reverse",
         }}
         className={cn(
-          "block rounded-sm w-[4px]  h-4 sm:h-6 xl:h-12 bg-blue-500",
+          "inline-block shrink-0 rounded-sm w-[3px] sm:w-[4px] h-4 sm:h-6 lg:h-10 bg-blue-500 ml-0.5",
           cursorClassName
         )}></motion.span>
     </div>
