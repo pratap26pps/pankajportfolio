@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
@@ -10,7 +10,7 @@ import AdminProjects from "./AdminProjects";
 import AdminServices from "./AdminServices";
 import AdminSkills from "./AdminSkills";
 import AdminCertifications from "./AdminCertifications";
-import { adminFetch, clearAdminToken } from "@/lib/adminFetch";
+import { adminFetch, clearAdminToken, syncAdminSession } from "@/lib/adminFetch";
 
 const tabs = [
   { id: "projects", label: "Projects" },
@@ -23,6 +23,11 @@ const tabs = [
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("projects");
+  const [sessionReady, setSessionReady] = useState(false);
+
+  useEffect(() => {
+    syncAdminSession().finally(() => setSessionReady(true));
+  }, []);
 
   async function handleLogout() {
     await adminFetch("/api/auth/logout", { method: "POST" });
@@ -33,6 +38,11 @@ export default function AdminDashboardPage() {
 
   return (
     <main className="min-h-screen bg-neutral-50 dark:bg-black text-neutral-900 dark:text-white">
+      {!sessionReady ? (
+        <div className="max-w-6xl mx-auto px-4 py-10">
+          <p className="text-neutral-500">Loading admin session...</p>
+        </div>
+      ) : (
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
@@ -77,6 +87,7 @@ export default function AdminDashboardPage() {
         {activeTab === "skills" && <AdminSkills />}
         {activeTab === "certifications" && <AdminCertifications />}
       </div>
+      )}
     </main>
   );
 }

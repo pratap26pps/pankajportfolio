@@ -3,7 +3,7 @@ import crypto from "crypto";
 const COOKIE_NAME = "admin_token";
 
 function getSecret() {
-  const secret = process.env.JWT_SECRET;
+  const secret = process.env.JWT_SECRET?.trim();
   if (!secret) throw new Error("JWT_SECRET is not configured");
   return secret;
 }
@@ -51,7 +51,8 @@ export function verifyAdminToken(token) {
 }
 
 export function verifyAdminPassword(password) {
-  return password === process.env.JWT_SECRET;
+  const secret = process.env.JWT_SECRET?.trim();
+  return Boolean(secret && password === secret);
 }
 
 export function getAdminCookieName() {
@@ -77,9 +78,17 @@ export function getTokenFromRequest(request) {
     return authHeader.slice(7);
   }
 
+  const headerToken = request.headers.get("x-admin-token");
+  if (headerToken) return headerToken;
+
   return null;
 }
 
-export function isAdminRequest(request) {
-  return verifyAdminToken(getTokenFromRequest(request));
+export function isAdminRequest(request, options = {}) {
+  const tokens = [
+    getTokenFromRequest(request),
+    ...(options.additionalTokens || []),
+  ].filter(Boolean);
+
+  return tokens.some((token) => verifyAdminToken(token));
 }

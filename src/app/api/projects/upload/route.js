@@ -7,11 +7,14 @@ import { saveUploadedProjectImage } from "@/lib/projectsStore";
 
 export async function POST(request) {
   try {
-    if (!isAdminRequest(request)) {
+    const formData = await request.formData();
+    const formToken = formData.get("_adminToken");
+    const additionalTokens = typeof formToken === "string" ? [formToken] : [];
+
+    if (!isAdminRequest(request, { additionalTokens })) {
       return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
     }
 
-    const formData = await request.formData();
     const file = formData.get("file");
     if (!file || typeof file === "string") {
       return NextResponse.json({ ok: false, error: "Image file is required" }, { status: 400 });
