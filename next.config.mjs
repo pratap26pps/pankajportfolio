@@ -8,15 +8,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com",
-      },
-      {
-        protocol: "https",
-        hostname: "raw.githubusercontent.com",
+        hostname: "res.cloudinary.com",
       },
     ],
   },
 };
 
 export default nextConfig;
-

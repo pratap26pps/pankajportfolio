@@ -1,7 +1,5 @@
 import crypto from "crypto";
-import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
-
-const DATA_FILE = "skills.json";
+import { getDocument, saveDocument } from "@/lib/db";
 
 const defaultData = {
   sectionTitle: "Technologies I've Worked With",
@@ -9,12 +7,12 @@ const defaultData = {
 };
 
 async function readData() {
-  const data = await readJsonFile(DATA_FILE, defaultData);
+  const data = await getDocument("skills", defaultData);
   return { ...defaultData, ...data };
 }
 
 async function writeData(data) {
-  await writeJsonFile(DATA_FILE, data);
+  await saveDocument("skills", data);
 }
 
 export async function getAllSkillsData() {

@@ -1,15 +1,13 @@
 import crypto from "crypto";
-import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
-
-const DATA_FILE = "testimonials.json";
+import { getDocument, saveDocument } from "@/lib/db";
 
 async function readFile() {
-  const data = await readJsonFile(DATA_FILE, []);
+  const data = await getDocument("testimonials", []);
   return Array.isArray(data) ? data : [];
 }
 
 async function writeFile(data) {
-  await writeJsonFile(DATA_FILE, data);
+  await saveDocument("testimonials", data);
 }
 
 export async function getAllTestimonials() {

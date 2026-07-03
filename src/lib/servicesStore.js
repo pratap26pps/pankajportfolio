@@ -1,7 +1,5 @@
 import crypto from "crypto";
-import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
-
-const DATA_FILE = "services.json";
+import { getDocument, saveDocument } from "@/lib/db";
 
 const defaultData = {
   intro: { title: "", subtitle: "" },
@@ -13,12 +11,12 @@ const defaultData = {
 };
 
 async function readData() {
-  const data = await readJsonFile(DATA_FILE, defaultData);
+  const data = await getDocument("services", defaultData);
   return { ...defaultData, ...data };
 }
 
 async function writeData(data) {
-  await writeJsonFile(DATA_FILE, data);
+  await saveDocument("services", data);
 }
 
 function normalizeFeatures(features) {

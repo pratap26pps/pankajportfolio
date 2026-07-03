@@ -1,9 +1,6 @@
-import path from "path";
 import crypto from "crypto";
-import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
-import { saveUploadedFile, deleteUploadedFile } from "@/lib/uploadStorage";
-
-const DATA_FILE = "certifications.json";
+import { getDocument, saveDocument } from "@/lib/db";
+import { uploadPortfolioFile, deletePortfolioFile } from "@/lib/cloudinary";
 
 const defaultData = {
   pageTitle: "Certifications",
@@ -12,12 +9,12 @@ const defaultData = {
 };
 
 async function readData() {
-  const data = await readJsonFile(DATA_FILE, defaultData);
+  const data = await getDocument("certifications", defaultData);
   return { ...defaultData, ...data };
 }
 
 async function writeData(data) {
-  await writeJsonFile(DATA_FILE, data);
+  await saveDocument("certifications", data);
 }
 
 export async function getAllCertificationsData() {
@@ -88,7 +85,7 @@ export async function deleteCertification(id) {
   if (!cert) return false;
 
   if (cert.image) {
-    await deleteUploadedFile(cert.image);
+    await deletePortfolioFile(cert.image);
   }
 
   data.certifications = data.certifications.filter((item) => item.id !== id);
@@ -97,8 +94,8 @@ export async function deleteCertification(id) {
 }
 
 export async function saveUploadedCertificationImage(file) {
-  return saveUploadedFile(file, {
-    folder: "certifications",
+  return uploadPortfolioFile(file, {
+    subfolder: "certifications",
     allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".gif", ".pdf"],
   });
 }

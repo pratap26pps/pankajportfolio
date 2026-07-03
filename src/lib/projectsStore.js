@@ -1,17 +1,14 @@
-import path from "path";
 import crypto from "crypto";
-import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
-import { saveUploadedFile, deleteUploadedFile } from "@/lib/uploadStorage";
-
-const DATA_FILE = "projects.json";
+import { getDocument, saveDocument } from "@/lib/db";
+import { uploadPortfolioFile, deletePortfolioFile } from "@/lib/cloudinary";
 
 async function readFile() {
-  const data = await readJsonFile(DATA_FILE, []);
+  const data = await getDocument("projects", []);
   return Array.isArray(data) ? data : [];
 }
 
 async function writeFile(data) {
-  await writeJsonFile(DATA_FILE, data);
+  await saveDocument("projects", data);
 }
 
 function normalizeIcons(icon) {
@@ -72,7 +69,7 @@ export async function deleteProject(id) {
   if (!project) return false;
 
   if (project.img) {
-    await deleteUploadedFile(project.img);
+    await deletePortfolioFile(project.img);
   }
 
   await writeFile(all.filter((item) => item.id !== id));
@@ -80,8 +77,8 @@ export async function deleteProject(id) {
 }
 
 export async function saveUploadedProjectImage(file) {
-  return saveUploadedFile(file, {
-    folder: "projects",
+  return uploadPortfolioFile(file, {
+    subfolder: "projects",
     allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".gif"],
   });
 }
