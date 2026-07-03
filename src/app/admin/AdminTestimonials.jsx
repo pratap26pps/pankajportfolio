@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { adminFetch } from "@/lib/adminFetch";
 import { toast } from "react-hot-toast";
 import { Plus, Trash2, CheckCircle2 } from "lucide-react";
 
@@ -23,7 +24,7 @@ export default function AdminTestimonials() {
   async function loadItems() {
     setLoading(true);
     try {
-      const res = await fetch("/api/testimonials?all=true");
+      const res = await adminFetch("/api/testimonials?all=true");
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "Failed to load");
       setItems(data.items || []);
@@ -42,7 +43,7 @@ export default function AdminTestimonials() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/testimonials", {
+      const res = await adminFetch("/api/testimonials", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -62,7 +63,7 @@ export default function AdminTestimonials() {
 
   async function toggleField(id, field, value) {
     try {
-      const res = await fetch("/api/testimonials", {
+      const res = await adminFetch("/api/testimonials", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, [field]: value }),
@@ -78,7 +79,7 @@ export default function AdminTestimonials() {
   async function handleDelete(id) {
     if (!confirm("Delete this testimonial?")) return;
     try {
-      const res = await fetch(`/api/testimonials?id=${id}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/testimonials?id=${id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "Delete failed");
       toast.success("Testimonial deleted");

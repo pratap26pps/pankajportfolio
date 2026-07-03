@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import { saveAdminToken } from "@/lib/adminFetch";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function AdminLoginPage() {
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "Login failed");
+      if (data.token) saveAdminToken(data.token);
       toast.success("Logged in successfully");
       router.push("/admin");
       router.refresh();

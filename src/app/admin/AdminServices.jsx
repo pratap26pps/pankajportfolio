@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { adminFetch } from "@/lib/adminFetch";
 import { toast } from "react-hot-toast";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { Icon } from "@iconify/react";
@@ -62,7 +63,7 @@ export default function AdminServices() {
   async function loadData() {
     setLoading(true);
     try {
-      const res = await fetch("/api/services?all=true");
+      const res = await adminFetch("/api/services?all=true");
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Failed to load");
       setData(json.data);
@@ -88,7 +89,7 @@ export default function AdminServices() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/services", {
+      const res = await adminFetch("/api/services", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ entity: "intro", ...introForm }),
@@ -146,7 +147,7 @@ export default function AdminServices() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/services", {
+      const res = await adminFetch("/api/services", {
         method: editingServiceId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -171,7 +172,7 @@ export default function AdminServices() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/services", {
+      const res = await adminFetch("/api/services", {
         method: editingPackageId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -195,7 +196,7 @@ export default function AdminServices() {
 
   async function toggleServiceField(id, field, value) {
     try {
-      const res = await fetch("/api/services", {
+      const res = await adminFetch("/api/services", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ entity: "service", id, [field]: value }),
@@ -210,7 +211,7 @@ export default function AdminServices() {
 
   async function togglePackageField(id, field, value) {
     try {
-      const res = await fetch("/api/services", {
+      const res = await adminFetch("/api/services", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ entity: "package", id, [field]: value }),
@@ -226,7 +227,7 @@ export default function AdminServices() {
   async function handleDelete(entity, id) {
     if (!confirm(`Delete this ${entity}?`)) return;
     try {
-      const res = await fetch(`/api/services?entity=${entity}&id=${id}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/services?entity=${entity}&id=${id}`, { method: "DELETE" });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Delete failed");
       toast.success("Deleted successfully");

@@ -10,6 +10,7 @@ import AdminProjects from "./AdminProjects";
 import AdminServices from "./AdminServices";
 import AdminSkills from "./AdminSkills";
 import AdminCertifications from "./AdminCertifications";
+import { adminFetch, clearAdminToken } from "@/lib/adminFetch";
 
 const tabs = [
   { id: "projects", label: "Projects" },
@@ -24,7 +25,8 @@ export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState("projects");
 
   async function handleLogout() {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await adminFetch("/api/auth/logout", { method: "POST" });
+    clearAdminToken();
     router.push("/admin/login");
     router.refresh();
   }

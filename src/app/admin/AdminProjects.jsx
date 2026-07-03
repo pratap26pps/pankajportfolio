@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { adminFetch } from "@/lib/adminFetch";
 import { toast } from "react-hot-toast";
 import { Plus, Trash2, Pencil, Upload } from "lucide-react";
 
@@ -30,7 +31,7 @@ export default function AdminProjects() {
   async function loadItems() {
     setLoading(true);
     try {
-      const res = await fetch("/api/projects?all=true");
+      const res = await adminFetch("/api/projects?all=true");
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "Failed to load");
       setItems(data.items || []);
@@ -74,7 +75,7 @@ export default function AdminProjects() {
     try {
       const body = new FormData();
       body.append("file", file);
-      const res = await fetch("/api/projects/upload", { method: "POST", body });
+      const res = await adminFetch("/api/projects/upload", { method: "POST", body });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "Upload failed");
       setForm((prev) => ({ ...prev, img: data.path }));
@@ -97,7 +98,7 @@ export default function AdminProjects() {
         icon: form.icon.split(",").map((item) => item.trim()).filter(Boolean),
       };
 
-      const res = await fetch("/api/projects", {
+      const res = await adminFetch("/api/projects", {
         method: editingId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editingId ? { id: editingId, ...payload } : payload),
@@ -117,7 +118,7 @@ export default function AdminProjects() {
 
   async function toggleVisible(id, visible) {
     try {
-      const res = await fetch("/api/projects", {
+      const res = await adminFetch("/api/projects", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, visible }),
@@ -133,7 +134,7 @@ export default function AdminProjects() {
   async function handleDelete(id) {
     if (!confirm("Delete this project?")) return;
     try {
-      const res = await fetch(`/api/projects?id=${id}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/projects?id=${id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "Delete failed");
       toast.success("Project deleted");

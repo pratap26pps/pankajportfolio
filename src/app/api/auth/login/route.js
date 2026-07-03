@@ -16,7 +16,7 @@ export async function POST(request) {
     }
 
     const token = signAdminToken();
-    const response = NextResponse.json({ ok: true });
+    const response = NextResponse.json({ ok: true, token });
     response.cookies.set(getAdminCookieName(), token, getAdminCookieOptions());
     return response;
   } catch (error) {

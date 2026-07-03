@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { adminFetch } from "@/lib/adminFetch";
 import { toast } from "react-hot-toast";
 import { Plus, Trash2, Pencil, Upload } from "lucide-react";
 
@@ -30,7 +31,7 @@ export default function AdminCertifications() {
   async function loadData() {
     setLoading(true);
     try {
-      const res = await fetch("/api/certifications?all=true");
+      const res = await adminFetch("/api/certifications?all=true");
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Failed to load");
       setData(json.data);
@@ -53,7 +54,7 @@ export default function AdminCertifications() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/certifications", {
+      const res = await adminFetch("/api/certifications", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ entity: "page", ...pageForm }),
@@ -98,7 +99,7 @@ export default function AdminCertifications() {
     try {
       const body = new FormData();
       body.append("file", file);
-      const res = await fetch("/api/certifications/upload", { method: "POST", body });
+      const res = await adminFetch("/api/certifications/upload", { method: "POST", body });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Upload failed");
       setForm((prev) => ({ ...prev, image: json.path }));
@@ -116,7 +117,7 @@ export default function AdminCertifications() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/certifications", {
+      const res = await adminFetch("/api/certifications", {
         method: editingId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editingId ? { id: editingId, ...form } : form),
@@ -135,7 +136,7 @@ export default function AdminCertifications() {
 
   async function toggleVisible(id, visible) {
     try {
-      const res = await fetch("/api/certifications", {
+      const res = await adminFetch("/api/certifications", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, visible }),
@@ -151,7 +152,7 @@ export default function AdminCertifications() {
   async function handleDelete(id) {
     if (!confirm("Delete this certification?")) return;
     try {
-      const res = await fetch(`/api/certifications?id=${id}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/certifications?id=${id}`, { method: "DELETE" });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Delete failed");
       toast.success("Certification deleted");

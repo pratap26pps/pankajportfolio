@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { adminFetch } from "@/lib/adminFetch";
 import { toast } from "react-hot-toast";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { Icon } from "@iconify/react";
@@ -24,7 +25,7 @@ export default function AdminSkills() {
   async function loadData() {
     setLoading(true);
     try {
-      const res = await fetch("/api/skills?all=true");
+      const res = await adminFetch("/api/skills?all=true");
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Failed to load");
       setData(json.data);
@@ -44,7 +45,7 @@ export default function AdminSkills() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/skills", {
+      const res = await adminFetch("/api/skills", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ entity: "section", sectionTitle }),
@@ -81,7 +82,7 @@ export default function AdminSkills() {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch("/api/skills", {
+      const res = await adminFetch("/api/skills", {
         method: editingId ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editingId ? { id: editingId, ...form } : form),
@@ -100,7 +101,7 @@ export default function AdminSkills() {
 
   async function toggleVisible(id, visible) {
     try {
-      const res = await fetch("/api/skills", {
+      const res = await adminFetch("/api/skills", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, visible }),
@@ -116,7 +117,7 @@ export default function AdminSkills() {
   async function handleDelete(id) {
     if (!confirm("Delete this skill?")) return;
     try {
-      const res = await fetch(`/api/skills?id=${id}`, { method: "DELETE" });
+      const res = await adminFetch(`/api/skills?id=${id}`, { method: "DELETE" });
       const json = await res.json();
       if (!res.ok || !json.ok) throw new Error(json.error || "Delete failed");
       toast.success("Skill deleted");
