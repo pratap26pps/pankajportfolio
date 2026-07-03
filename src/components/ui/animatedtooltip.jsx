@@ -25,9 +25,10 @@ export const AnimatedTooltip = ({
     const halfWidth = event.target.offsetWidth / 2;
     x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
   };
-  const openlinkhandler =(link)=>{
-    window.open(link);
-  }
+  const openlinkhandler = (link) => {
+    const href = link.startsWith("/") ? `${window.location.origin}${link}` : link;
+    window.open(href, "_blank", "noopener,noreferrer");
+  };
 
   const itemGap = spaced ? "group relative" : "group relative -mr-4";
 

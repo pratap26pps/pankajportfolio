@@ -1,13 +1,41 @@
 "use client";
 
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FloatingNav } from "@/components/ui/floatingnavbar";
 import { AnimatedTooltip } from "@/components/ui/animatedtooltip";
 import MobileNav from "@/components/ui/MobileNav";
-import { navItems, profileItem, socialIcons } from "@/lib/siteNav";
+import { navItems, profileItem, socialIcons as defaultSocialIcons } from "@/lib/siteNav";
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  const [resumeNavHref, setResumeNavHref] = useState(null);
+
+  const loadResumeNav = useCallback(() => {
+    fetch("/api/resume", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.ok && json.navHref) {
+          setResumeNavHref(json.navHref);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    loadResumeNav();
+
+    const onFocus = () => loadResumeNav();
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
+  }, [pathname, loadResumeNav]);
+
+  const socialIcons = useMemo(() => {
+    return defaultSocialIcons.map((icon) => {
+      if (icon.name !== "Resume") return icon;
+      return { ...icon, link: resumeNavHref || icon.link };
+    });
+  }, [resumeNavHref]);
 
   if (pathname?.startsWith("/admin")) {
     return null;
@@ -33,7 +61,7 @@ export default function SiteHeader() {
             <AnimatedTooltip icons={socialIcons} spaced />
           </div>
           <div className="lg:hidden">
-            <MobileNav />
+            <MobileNav socialIcons={socialIcons} />
           </div>
         </div>
       </div>

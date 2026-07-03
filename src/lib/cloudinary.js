@@ -30,6 +30,14 @@ function assertAllowedExtension(file, allowedExtensions) {
   }
 }
 
+export function resourceTypeFromUrl(url) {
+  if (!url?.includes("res.cloudinary.com")) return "auto";
+  if (url.includes("/raw/upload/")) return "raw";
+  if (url.includes("/video/upload/")) return "video";
+  if (url.includes("/image/upload/")) return "image";
+  return "auto";
+}
+
 function publicIdFromUrl(url) {
   if (!url?.includes("res.cloudinary.com")) return null;
   const afterUpload = url.split("/upload/")[1];
@@ -38,7 +46,29 @@ function publicIdFromUrl(url) {
   return withoutVersion.replace(/\.[^/.]+$/, "");
 }
 
-export async function uploadPortfolioFile(file, { subfolder, allowedExtensions }) {
+export async function uploadResumePdf(file) {
+  assertCloudinaryConfigured();
+  assertAllowedExtension(file, [".pdf"]);
+  configureCloudinary();
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload_stream(
+      {
+        folder: getCloudinaryFolder("resume"),
+        resource_type: "raw",
+      },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.secure_url);
+      }
+    ).end(buffer);
+  });
+}
+
+export async function uploadPortfolioFile(file, { subfolder, allowedExtensions, resourceType = "auto" }) {
   assertCloudinaryConfigured();
   assertAllowedExtension(file, allowedExtensions);
   configureCloudinary();
@@ -50,7 +80,7 @@ export async function uploadPortfolioFile(file, { subfolder, allowedExtensions }
     const stream = cloudinary.uploader.upload_stream(
       {
         folder: getCloudinaryFolder(subfolder),
-        resource_type: "auto",
+        resource_type: resourceType,
       },
       (error, result) => {
         if (error) reject(error);
@@ -68,8 +98,10 @@ export async function deletePortfolioFile(url) {
   assertCloudinaryConfigured();
   configureCloudinary();
 
+  const resourceType = resourceTypeFromUrl(url);
+
   try {
-    await cloudinary.uploader.destroy(publicId, { resource_type: "auto" });
+    await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
   } catch {
     // ignore missing assets
   }

@@ -10,6 +10,7 @@ import AdminProjects from "./AdminProjects";
 import AdminServices from "./AdminServices";
 import AdminSkills from "./AdminSkills";
 import AdminCertifications from "./AdminCertifications";
+import AdminResume from "./AdminResume";
 import { adminFetch, clearAdminToken, syncAdminSession } from "@/lib/adminFetch";
 
 const tabs = [
@@ -18,6 +19,7 @@ const tabs = [
   { id: "services", label: "Services" },
   { id: "skills", label: "Skills" },
   { id: "certifications", label: "Certifications" },
+  { id: "resume", label: "Resume" },
 ];
 
 export default function AdminDashboardPage() {
@@ -51,7 +53,7 @@ export default function AdminDashboardPage() {
             </Link>
             <h1 className="mt-2 text-3xl font-bold">Admin Dashboard</h1>
             <p className="text-neutral-600 dark:text-neutral-400">
-              Manage portfolio projects, testimonials, services, skills, and certifications
+              Manage portfolio content, certifications, and resume
             </p>
           </div>
           <button
@@ -86,6 +88,7 @@ export default function AdminDashboardPage() {
         {activeTab === "services" && <AdminServices />}
         {activeTab === "skills" && <AdminSkills />}
         {activeTab === "certifications" && <AdminCertifications />}
+        {activeTab === "resume" && <AdminResume />}
       </div>
       )}
     </main>

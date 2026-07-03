@@ -36,7 +36,7 @@ export const socialIcons = [
   {
     id: 4,
     name: "Resume",
-    link: "https://drive.google.com/file/d/1I6-326Agso1BIU45K0grmm0lEl3SIbG3/view?usp=drivesdk",
+    link: "/api/resume/view",
     image: "/file.png",
   },
 ];

@@ -5,11 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navItems, socialIcons } from "@/lib/siteNav";
+import { navItems, socialIcons as defaultSocialIcons } from "@/lib/siteNav";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Image from "next/image";
 
-export default function MobileNav() {
+export default function MobileNav({ socialIcons = defaultSocialIcons }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -114,8 +114,16 @@ export default function MobileNav() {
                       <a
                         key={icon.name}
                         href={icon.link}
-                        target={icon.link.startsWith("http") ? "_blank" : undefined}
-                        rel={icon.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                        target={
+                          icon.link.startsWith("http") || icon.link.startsWith("/api/")
+                            ? "_blank"
+                            : undefined
+                        }
+                        rel={
+                          icon.link.startsWith("http") || icon.link.startsWith("/api/")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
                         aria-label={icon.name}
                         onClick={closeMenu}
                         className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 hover:border-indigo-400/50 transition-colors"
