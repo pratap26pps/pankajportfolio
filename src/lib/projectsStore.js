@@ -1,22 +1,17 @@
-import fs from "fs/promises";
 import path from "path";
 import crypto from "crypto";
+import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
+import { saveUploadedFile, deleteUploadedFile } from "@/lib/uploadStorage";
 
-const DATA_PATH = path.join(process.cwd(), "data", "projects.json");
-const UPLOAD_DIR = path.join(process.cwd(), "public", "projects");
+const DATA_FILE = "projects.json";
 
 async function readFile() {
-  try {
-    const raw = await fs.readFile(DATA_PATH, "utf-8");
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+  const data = await readJsonFile(DATA_FILE, []);
+  return Array.isArray(data) ? data : [];
 }
 
 async function writeFile(data) {
-  await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(data, null, 2), "utf-8");
+  await writeJsonFile(DATA_FILE, data);
 }
 
 function normalizeIcons(icon) {
@@ -76,13 +71,8 @@ export async function deleteProject(id) {
   const project = all.find((item) => item.id === id);
   if (!project) return false;
 
-  if (project.img?.startsWith("/projects/")) {
-    const filePath = path.join(process.cwd(), "public", project.img);
-    try {
-      await fs.unlink(filePath);
-    } catch {
-      // ignore missing files
-    }
+  if (project.img) {
+    await deleteUploadedFile(project.img);
   }
 
   await writeFile(all.filter((item) => item.id !== id));
@@ -90,15 +80,8 @@ export async function deleteProject(id) {
 }
 
 export async function saveUploadedProjectImage(file) {
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  const originalName = file.name || "upload.png";
-  const ext = path.extname(originalName).toLowerCase() || ".png";
-  const allowed = [".png", ".jpg", ".jpeg", ".webp", ".gif"];
-  if (!allowed.includes(ext)) throw new Error("Unsupported image type");
-
-  const filename = `${crypto.randomUUID()}${ext}`;
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
-  await fs.writeFile(path.join(UPLOAD_DIR, filename), buffer);
-  return `/projects/${filename}`;
+  return saveUploadedFile(file, {
+    folder: "projects",
+    allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".gif"],
+  });
 }

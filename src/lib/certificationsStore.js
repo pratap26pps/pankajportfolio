@@ -1,9 +1,9 @@
-import fs from "fs/promises";
 import path from "path";
 import crypto from "crypto";
+import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
+import { saveUploadedFile, deleteUploadedFile } from "@/lib/uploadStorage";
 
-const DATA_PATH = path.join(process.cwd(), "data", "certifications.json");
-const UPLOAD_DIR = path.join(process.cwd(), "public", "certifications");
+const DATA_FILE = "certifications.json";
 
 const defaultData = {
   pageTitle: "Certifications",
@@ -12,17 +12,12 @@ const defaultData = {
 };
 
 async function readData() {
-  try {
-    const raw = await fs.readFile(DATA_PATH, "utf-8");
-    return { ...defaultData, ...JSON.parse(raw) };
-  } catch {
-    return defaultData;
-  }
+  const data = await readJsonFile(DATA_FILE, defaultData);
+  return { ...defaultData, ...data };
 }
 
 async function writeData(data) {
-  await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(data, null, 2), "utf-8");
+  await writeJsonFile(DATA_FILE, data);
 }
 
 export async function getAllCertificationsData() {
@@ -92,13 +87,8 @@ export async function deleteCertification(id) {
   const cert = data.certifications.find((item) => item.id === id);
   if (!cert) return false;
 
-  if (cert.image?.startsWith("/certifications/")) {
-    const filePath = path.join(process.cwd(), "public", cert.image);
-    try {
-      await fs.unlink(filePath);
-    } catch {
-      // ignore
-    }
+  if (cert.image) {
+    await deleteUploadedFile(cert.image);
   }
 
   data.certifications = data.certifications.filter((item) => item.id !== id);
@@ -107,14 +97,8 @@ export async function deleteCertification(id) {
 }
 
 export async function saveUploadedCertificationImage(file) {
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  const ext = path.extname(file.name || ".png").toLowerCase() || ".png";
-  const allowed = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".pdf"];
-  if (!allowed.includes(ext)) throw new Error("Unsupported file type");
-
-  const filename = `${crypto.randomUUID()}${ext}`;
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
-  await fs.writeFile(path.join(UPLOAD_DIR, filename), buffer);
-  return `/certifications/${filename}`;
+  return saveUploadedFile(file, {
+    folder: "certifications",
+    allowedExtensions: [".png", ".jpg", ".jpeg", ".webp", ".gif", ".pdf"],
+  });
 }

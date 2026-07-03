@@ -1,8 +1,7 @@
-import fs from "fs/promises";
-import path from "path";
 import crypto from "crypto";
+import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
 
-const DATA_PATH = path.join(process.cwd(), "data", "skills.json");
+const DATA_FILE = "skills.json";
 
 const defaultData = {
   sectionTitle: "Technologies I've Worked With",
@@ -10,17 +9,12 @@ const defaultData = {
 };
 
 async function readData() {
-  try {
-    const raw = await fs.readFile(DATA_PATH, "utf-8");
-    return { ...defaultData, ...JSON.parse(raw) };
-  } catch {
-    return defaultData;
-  }
+  const data = await readJsonFile(DATA_FILE, defaultData);
+  return { ...defaultData, ...data };
 }
 
 async function writeData(data) {
-  await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(data, null, 2), "utf-8");
+  await writeJsonFile(DATA_FILE, data);
 }
 
 export async function getAllSkillsData() {

@@ -1,21 +1,15 @@
-import fs from "fs/promises";
-import path from "path";
 import crypto from "crypto";
+import { readJsonFile, writeJsonFile } from "@/lib/jsonStore";
 
-const DATA_PATH = path.join(process.cwd(), "data", "testimonials.json");
+const DATA_FILE = "testimonials.json";
 
 async function readFile() {
-  try {
-    const raw = await fs.readFile(DATA_PATH, "utf-8");
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+  const data = await readJsonFile(DATA_FILE, []);
+  return Array.isArray(data) ? data : [];
 }
 
 async function writeFile(data) {
-  await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, JSON.stringify(data, null, 2), "utf-8");
+  await writeJsonFile(DATA_FILE, data);
 }
 
 export async function getAllTestimonials() {

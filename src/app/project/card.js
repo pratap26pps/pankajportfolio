@@ -11,6 +11,7 @@ const fadeInUp = {
 
 function projectImageSrc(img) {
   if (!img) return "";
+  if (/^https?:\/\//.test(img)) return img;
   return img.startsWith("/") ? img : `/${img}`;
 }
 
