@@ -2,7 +2,16 @@ import fs from "fs/promises";
 import path from "path";
 import crypto from "crypto";
 import { put, del } from "@vercel/blob";
-import { useBlobStorage, assertBlobConfiguredOnVercel } from "@/lib/blobStorage";
+import {
+  useBlobStorage,
+  getBlobToken,
+  assertProductionStorageConfigured,
+} from "@/lib/blobStorage";
+import {
+  useGithubStorage,
+  writeGithubFile,
+  githubRawUrl,
+} from "@/lib/githubStorage";
 
 function getExtension(file, fallback = ".png") {
   return path.extname(file.name || fallback).toLowerCase() || fallback;
@@ -14,9 +23,8 @@ function assertAllowedExtension(ext, allowed) {
   }
 }
 
-/** Saves an uploaded file to Vercel Blob (production) or public/ (local dev). */
 export async function saveUploadedFile(file, { folder, allowedExtensions }) {
-  assertBlobConfiguredOnVercel();
+  assertProductionStorageConfigured();
 
   const ext = getExtension(file);
   assertAllowedExtension(ext, allowedExtensions);
@@ -27,8 +35,17 @@ export async function saveUploadedFile(file, { folder, allowedExtensions }) {
     const blob = await put(key, file, {
       access: "public",
       addRandomSuffix: false,
+      token: getBlobToken(),
     });
     return blob.url;
+  }
+
+  if (process.env.VERCEL && useGithubStorage()) {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const filePath = `public/${folder}/${filename}`;
+    await writeGithubFile(filePath, buffer, `Upload ${filename} via admin`);
+    return githubRawUrl(filePath);
   }
 
   const uploadDir = path.join(process.cwd(), "public", folder);
@@ -39,16 +56,16 @@ export async function saveUploadedFile(file, { folder, allowedExtensions }) {
   return `/${folder}/${filename}`;
 }
 
-/** Removes a previously uploaded file (Blob URL or local public/ path). */
 export async function deleteUploadedFile(filePath) {
   if (!filePath) return;
 
   if (filePath.startsWith("http://") || filePath.startsWith("https://")) {
-    if (!useBlobStorage()) return;
-    try {
-      await del(filePath);
-    } catch {
-      // ignore missing blobs
+    if (useBlobStorage()) {
+      try {
+        await del(filePath, { token: getBlobToken() });
+      } catch {
+        // ignore missing blobs
+      }
     }
     return;
   }

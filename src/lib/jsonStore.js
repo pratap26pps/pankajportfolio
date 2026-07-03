@@ -1,7 +1,12 @@
 import fs from "fs/promises";
 import path from "path";
 import { put, list } from "@vercel/blob";
-import { useBlobStorage, assertBlobConfiguredOnVercel } from "@/lib/blobStorage";
+import {
+  useBlobStorage,
+  getBlobToken,
+  assertProductionStorageConfigured,
+} from "@/lib/blobStorage";
+import { useGithubStorage, readGithubText, writeGithubFile } from "@/lib/githubStorage";
 
 function blobKey(filename) {
   return `data/${filename}`;
@@ -9,7 +14,7 @@ function blobKey(filename) {
 
 async function readFromBlob(filename) {
   const key = blobKey(filename);
-  const { blobs } = await list({ prefix: key, limit: 10 });
+  const { blobs } = await list({ prefix: key, limit: 10, token: getBlobToken() });
   const match = blobs.find((blob) => blob.pathname === key);
   if (!match) return null;
 
@@ -18,28 +23,38 @@ async function readFromBlob(filename) {
   return JSON.parse(await res.text());
 }
 
+async function readFromGithub(filename) {
+  const text = await readGithubText(`data/${filename}`);
+  if (!text) return null;
+  return JSON.parse(text);
+}
+
 async function readFromLocal(filename) {
   const filePath = path.join(process.cwd(), "data", filename);
   const raw = await fs.readFile(filePath, "utf-8");
   return JSON.parse(raw);
 }
 
-/** Read JSON — Blob override first on Vercel, then bundled data/*.json from the deploy. */
 export async function readJsonFile(filename, defaultValue) {
   try {
     if (useBlobStorage()) {
       const blobData = await readFromBlob(filename);
       if (blobData !== null) return blobData;
     }
+
+    if (process.env.VERCEL && useGithubStorage()) {
+      const githubData = await readFromGithub(filename);
+      if (githubData !== null) return githubData;
+    }
+
     return await readFromLocal(filename);
   } catch {
     return defaultValue;
   }
 }
 
-/** Write JSON — Blob on Vercel/production, local data/ folder in dev. */
 export async function writeJsonFile(filename, data) {
-  assertBlobConfiguredOnVercel();
+  assertProductionStorageConfigured();
 
   const content = JSON.stringify(data, null, 2);
 
@@ -49,7 +64,13 @@ export async function writeJsonFile(filename, data) {
       addRandomSuffix: false,
       contentType: "application/json",
       allowOverwrite: true,
+      token: getBlobToken(),
     });
+    return;
+  }
+
+  if (process.env.VERCEL && useGithubStorage()) {
+    await writeGithubFile(`data/${filename}`, content, `Update ${filename} via admin`);
     return;
   }
 

@@ -1,11 +1,21 @@
-export function useBlobStorage() {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+import { useGithubStorage } from "@/lib/githubStorage";
+
+export function getBlobToken() {
+  return process.env.BLOB_READ_WRITE_TOKEN?.trim() || null;
 }
 
-export function assertBlobConfiguredOnVercel() {
-  if (process.env.VERCEL && !useBlobStorage()) {
-    throw new Error(
-      "Vercel Blob is not configured. In Vercel Dashboard go to Storage → Create Blob store, connect it to this project, then redeploy."
-    );
-  }
+export function useBlobStorage() {
+  return Boolean(getBlobToken());
+}
+
+export function assertProductionStorageConfigured() {
+  if (!process.env.VERCEL) return;
+
+  if (useBlobStorage() || useGithubStorage()) return;
+
+  throw new Error(
+    "Production storage is not configured. Choose one option:\n" +
+      "• Vercel Blob: Dashboard → Storage → Create Blob → Connect → Redeploy\n" +
+      "• GitHub (no Blob needed): Add GITHUB_TOKEN + GITHUB_REPO in Vercel Environment Variables, then redeploy"
+  );
 }
