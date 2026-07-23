@@ -5,13 +5,14 @@ import { usePathname } from "next/navigation";
 import { FloatingNav } from "@/components/ui/floatingnavbar";
 import { AnimatedTooltip } from "@/components/ui/animatedtooltip";
 import MobileNav from "@/components/ui/MobileNav";
-import { navItems, profileItem, socialIcons as defaultSocialIcons } from "@/lib/siteNav";
+import { navItems, profileItem as defaultProfileItem, socialIcons as defaultSocialIcons } from "@/lib/siteNav";
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const [resumeNavHref, setResumeNavHref] = useState(null);
+  const [profileItem, setProfileItem] = useState(defaultProfileItem);
 
-  const loadResumeNav = useCallback(() => {
+  const loadHeaderData = useCallback(() => {
     fetch("/api/resume", { cache: "no-store" })
       .then((res) => res.json())
       .then((json) => {
@@ -20,15 +21,29 @@ export default function SiteHeader() {
         }
       })
       .catch(() => {});
+
+    fetch("/api/profile", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.ok && json.data) {
+          setProfileItem({
+            ...defaultProfileItem,
+            name: json.data.name || defaultProfileItem.name,
+            designation: json.data.designation || defaultProfileItem.designation,
+            image: json.data.image || defaultProfileItem.image,
+          });
+        }
+      })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
-    loadResumeNav();
+    loadHeaderData();
 
-    const onFocus = () => loadResumeNav();
+    const onFocus = () => loadHeaderData();
     window.addEventListener("focus", onFocus);
     return () => window.removeEventListener("focus", onFocus);
-  }, [pathname, loadResumeNav]);
+  }, [pathname, loadHeaderData]);
 
   const socialIcons = useMemo(() => {
     return defaultSocialIcons.map((icon) => {

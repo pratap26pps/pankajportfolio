@@ -1,0 +1,32 @@
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
+import { NextResponse } from "next/server";
+import { isAdminRequest } from "@/lib/auth";
+import { saveUploadedProfileImage } from "@/lib/profileStore";
+
+export async function POST(request) {
+  try {
+    const formData = await request.formData();
+    const formToken = formData.get("_adminToken");
+    const additionalTokens = typeof formToken === "string" ? [formToken] : [];
+
+    if (!isAdminRequest(request, { additionalTokens })) {
+      return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
+    }
+
+    const file = formData.get("file");
+    if (!file || typeof file === "string") {
+      return NextResponse.json({ ok: false, error: "Image file is required" }, { status: 400 });
+    }
+
+    const path = await saveUploadedProfileImage(file);
+    return NextResponse.json({ ok: true, path });
+  } catch (error) {
+    console.error("POST /api/profile/upload error", error);
+    return NextResponse.json(
+      { ok: false, error: error.message || "Failed to upload profile photo" },
+      { status: 500 }
+    );
+  }
+}
